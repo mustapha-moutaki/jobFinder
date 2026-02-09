@@ -1,7 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { inject, Injectable } from "@angular/core";
 import { environment } from "../../environments/environment.development";
-import { RegisterRequest } from "../core/models/auth.model";
+import { LoginRequest, RegisterRequest } from "../core/models/auth.model";
 import { Observable } from "rxjs";
 
 @Injectable({providedIn: 'root'})
@@ -16,5 +16,9 @@ export class AuthApi{
         return this.http.post<void>(`${this.baseUrl}`, data);
     }
     
+
+     getUserByEmail(email: string): Observable<RegisterRequest[]> {
+        return this.http.get<RegisterRequest[]>(`${this.baseUrl}?email=${email}`);
+    }
 
 }

@@ -1,0 +1,56 @@
+<div class="flex justify-center items-center min-h-screen bg-gray-50">
+  <mat-card class="w-full max-w-md p-6">
+    <h2 class="text-2xl font-bold mb-6 text-center">Login</h2>
+
+    <form [formGroup]="form" (ngSubmit)="submit()" class="space-y-4">
+      
+      <!-- Email Field -->
+      <mat-form-field appearance="outline" class="w-full">
+        <mat-label>Email</mat-label>
+        <input 
+          matInput 
+          type="email" 
+          formControlName="email" 
+          placeholder="Enter your email"
+        >
+        <mat-error *ngIf="form.get('email')?.hasError('email')">
+          Please enter a valid email address
+        </mat-error>
+      </mat-form-field>
+
+      <!-- Password Field -->
+      <mat-form-field appearance="outline" class="w-full">
+        <mat-label>Password</mat-label>
+        <input 
+          matInput 
+          type="password" 
+          formControlName="password" 
+          placeholder="Enter your password"
+        >
+      </mat-form-field>
+
+      <!-- Submit Button -->
+      <button 
+        mat-raised-button 
+        color="primary" 
+        type="submit"
+        class="w-full py-3 text-white font-semibold rounded-lg shadow-md hover:shadow-lg transition-all duration-300"
+        [disabled]="form.invalid || loading"
+      >
+        {{ loading ? 'Logging in...' : 'Login' }}
+      </button>
+
+      <!-- Error Message -->
+      <p *ngIf="error" class="text-red-500 text-sm mt-2 text-center font-medium">
+        {{ error }}
+      </p>
+
+      <!-- Link to Register (Optional) -->
+      <p class="text-center text-sm text-gray-600 mt-4">
+        Don't have an account? 
+        <a routerLink="/register" class="text-blue-600 hover:underline">Register here</a>
+      </p>
+
+    </form>
+  </mat-card>
+</div>

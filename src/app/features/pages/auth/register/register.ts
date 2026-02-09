@@ -5,6 +5,8 @@ import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
+import { Router, RouterLink } from '@angular/router';
+import { Login } from '../login/login';
 
 @Component({
   standalone: true,
@@ -24,6 +26,7 @@ export class Register {
 
   private readonly fb = inject(FormBuilder);
 
+  private readonly router = inject(Router)
 
    form = this.fb.nonNullable.group({
     firstName: ['', [Validators.required]],
@@ -42,6 +45,7 @@ export class Register {
       next: ()=>{
         this.loading = false;
         this.error = '';
+        this.router.navigate(['/login']);
       },
       error: ()=>{
         this.loading = false;
