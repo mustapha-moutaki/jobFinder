@@ -157,7 +157,26 @@
             }
           </div>
 
-          <!-- Pagination remains the same... -->
+           <!-- SIMPLE PAGINATION -->
+        <div class="mt-12 flex items-center justify-center gap-6">
+          <button 
+            (click)="prevPage()" 
+            [disabled]="currentPage() === 0"
+            class="flex items-center gap-2 px-6 py-3 bg-white border border-gray-200 rounded-xl font-bold text-gray-600 hover:bg-teal-50 hover:text-[#08a88a] disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-sm">
+            <i class="fa-solid fa-arrow-left"></i> Previous
+          </button>
+
+          <span class="text-gray-900 font-black">
+            Page {{ currentPage() + 1 }}
+          </span>
+
+          <button 
+            (click)="nextPage()"
+            [disabled]="jobs().length === 0" 
+            class="flex items-center gap-2 px-6 py-3 bg-white border border-gray-200 rounded-xl font-bold text-gray-600 hover:bg-teal-50 hover:text-[#08a88a] disabled:opacity-50 transition-all shadow-sm">
+            Next <i class="fa-solid fa-arrow-right"></i>
+          </button>
+        </div>
         }
       </main>
     </div>

@@ -87,4 +87,18 @@ export class Jobs implements OnInit {
     });
   }
 
+
+
+  // paginatio 
+  nextPage() {
+  this.loadJobs(this.currentPage() + 1);
+  window.scrollTo({ top: 0, behavior: 'smooth' }); 
+}
+
+prevPage() {
+  if (this.currentPage() > 0) {
+    this.loadJobs(this.currentPage() - 1);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+}
 }
