@@ -5,14 +5,21 @@ import { Observable } from "rxjs";
 import { Job, PageResponse } from "../core/models/job.model";
 
 @Injectable({providedIn: 'root'})
-
-export class JobApi{
+export class JobApi {
     private readonly http = inject(HttpClient);
-    private readonly baseUrl = `${environment.publicApi}`;
+    
+    // URL for Arbeitnow (GET ONLY)
+    private readonly publicUrl = `${environment.publicApi}`;
 
-    getAllJobs(page: number =0): Observable<PageResponse<Job>>{
-             const params = new HttpParams().set('page', page.toString());
-            
-            return this.http.get<PageResponse<Job>>(this.baseUrl, { params });
-        }
+    private readonly localUrl = `${environment.localApi}`;
+
+    getAllJobs(page: number = 1): Observable<PageResponse<Job>> {
+        const params = new HttpParams().set('page', page.toString());
+        return this.http.get<PageResponse<Job>>(this.publicUrl, { params });
+    }
+
+    // Change the URL here to point to localUrl
+    addToFavorite(data: {userId: number, jobSlug: string}): Observable<void> {
+        return this.http.post<void>(`${this.localUrl}/favorites`, data);
+    }
 }

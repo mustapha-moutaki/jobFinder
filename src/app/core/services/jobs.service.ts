@@ -1,6 +1,6 @@
 import { inject, Injectable } from "@angular/core";
 import { JobApi } from "../../api/jobs.api";
-import { Observable } from "rxjs";
+import { Observable, retry } from "rxjs";
 import { Job, PageResponse } from "../models/job.model";
 
 @Injectable({providedIn: 'root'})
@@ -10,5 +10,9 @@ export class JobService{
 
     getAllJobs(page: number =0): Observable<PageResponse<Job>>{
          return this.jobApi.getAllJobs(page)
+    }
+
+    addToFavorite(data:any):Observable<void>{
+        return this.jobApi.addToFavorite(data);
     }
 }

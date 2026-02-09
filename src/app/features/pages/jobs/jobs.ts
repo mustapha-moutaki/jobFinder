@@ -57,9 +57,34 @@ export class Jobs implements OnInit {
     });
   }
 
+  private readonly idUser =  this.curretUser()?.id;
 
   // add to favorite
-  addToFavorite(){
-    return ''
+    addToFavorite(job: Job) {
+    const user = this.curretUser();
+    
+    if (!user || !user.id) {
+      alert("Please login to save favorites");
+      return;
+    }
+
+    // We store the user ID and the job slug (unique identifier from the API)
+    const favJob = {
+      userId: user.id,
+      jobSlug: job.slug,
+      jobTitle: job.title, // Optional: store title to display in favorite list later
+      company: job.company_name
+    };
+
+    this.jobService.addToFavorite(favJob).subscribe({
+      next: () => {
+        alert("Saved to your local favorites!");
+      },
+      error: (err: any) => {
+        console.error("Make sure your json-server is running on port 3000", err);
+        alert("Could not save to local server.");
+      }
+    });
   }
+
 }
