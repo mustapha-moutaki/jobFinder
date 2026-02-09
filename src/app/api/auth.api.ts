@@ -20,5 +20,5 @@ export class AuthApi{
      getUserByEmail(email: string): Observable<RegisterRequest[]> {
         return this.http.get<RegisterRequest[]>(`${this.baseUrl}?email=${email}`);
     }
-
+    
 }

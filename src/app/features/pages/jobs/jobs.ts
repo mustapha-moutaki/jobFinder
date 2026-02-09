@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule, MatIconButton } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
+import { AuthService } from '../../../core/services/auth.service';
 
 @Component({
   selector: 'app-jobs',
@@ -19,15 +20,21 @@ import { MatCardModule } from '@angular/material/card';
 })
 export class Jobs implements OnInit {
   private readonly jobService = inject(JobService);
-
+  private readonly authServce = inject(AuthService)
   
   jobs = signal<Job[]>([]);
   isLoading = signal(false);
   currentPage = signal(0);
   error = signal('');
 
+
   ngOnInit(): void {
     this.loadJobs(0);
+    this.authServce.getCurrentUser();
+  }
+
+  curretUser(){
+    return this.authServce.getCurrentUser();
   }
 
   loadJobs(page: number) {
@@ -48,5 +55,11 @@ export class Jobs implements OnInit {
         this.isLoading.set(false);
       }
     });
+  }
+
+
+  // add to favorite
+  addToFavorite(){
+    return ''
   }
 }

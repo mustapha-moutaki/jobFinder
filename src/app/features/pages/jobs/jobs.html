@@ -1,179 +1,163 @@
-<div class="min-h-screen bg-slate-50 flex flex-col font-sans selection:bg-[#08a88a]/20">
+  <div class="min-h-screen bg-slate-50 flex flex-col font-sans selection:bg-[#08a88a]/20">
 
-
-  <div class="bg-[#08a88a] bg-gradient-to-br from-[#068d74] via-[#08a88a] to-[#20c997] pb-32 pt-16 px-6 md:px-12 w-full">
-    <div class="w-full text-center mb-10">
-      <h1 class="text-4xl md:text-6xl font-extrabold text-white mb-4 tracking-tight">
-        Find your next <span class="text-teal-100 italic underline decoration-wavy">dream career</span>.
-      </h1>
-      <p class="text-white/90 text-xl opacity-90">Explore thousands of job opportunities across Germany.</p>
-    </div>
-
-    <div class="w-full -mb-44 relative z-10">
-      <div class="bg-white p-3 rounded-2xl shadow-2xl flex flex-col md:flex-row gap-2 border border-white/20">
-        <div class="flex-1 flex items-center px-6 border-r border-gray-100">
-          <span class="text-xl mr-3 text-[#08a88a]"><i class="fa-solid fa-magnifying-glass"></i></span>
-          <input type="text" placeholder="Job title or company" 
-            class="w-full py-5 outline-none text-gray-700 font-medium text-lg placeholder:text-gray-400">
-        </div>
-        <div class="flex-1 flex items-center px-6">
-          <span class="text-xl mr-3 text-[#08a88a]"><i class="fa-solid fa-earth-africa"></i></span>
-          <input type="text" placeholder="City or Remote" 
-            class="w-full py-5 outline-none text-gray-700 font-medium text-lg placeholder:text-gray-400">
-        </div>
-        <button class="bg-[#08a88a] hover:bg-[#068d74] text-white px-12 py-5 rounded-xl font-bold text-lg transition-all transform hover:scale-[1.01] active:scale-95 shadow-lg shadow-[#08a88a]/30">
-          Search Jobs
-        </button>
-      </div>
-    </div>
-  </div>
-
-  <!-- 2. MAIN CONTENT -->
-  <div class="flex-1 flex w-full px-6 md:px-12 pt-24 pb-20 gap-10 mt-10">
-
-    <!-- LEFT SIDEBAR (Sticky Filters) -->
-    <aside class="hidden lg:block w-80 shrink-0">
-      <div class="sticky top-10 space-y-6">
-        <div class="bg-white/70 backdrop-blur-md p-8 rounded-3xl border border-white shadow-sm">
-          <h3 class="font-black text-gray-900 text-xs uppercase tracking-widest mb-8">Filter Results</h3>
-          
-          <div class="space-y-8">
-            <div>
-              <p class="text-sm font-bold text-gray-500 mb-4">Job Type</p>
-              <div class="flex flex-col gap-4">
-                <label class="flex items-center group cursor-pointer">
-                  <div class="w-6 h-6 border-2 border-teal-100 rounded-lg group-hover:border-[#08a88a] transition-colors mr-3 flex items-center justify-center">
-                    <div class="w-2.5 h-2.5 bg-[#08a88a] rounded-sm opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                  </div>
-                  <span class="text-gray-700 font-semibold text-base group-hover:text-[#08a88a]">Full-time</span>
-                </label>
-                <label class="flex items-center group cursor-pointer">
-                  <div class="w-6 h-6 border-2 border-teal-100 rounded-lg group-hover:border-[#08a88a] transition-colors mr-3 flex items-center justify-center">
-                    <div class="w-2.5 h-2.5 bg-[#08a88a] rounded-sm opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                  </div>
-                  <span class="text-gray-700 font-semibold text-base group-hover:text-[#08a88a]">Contract</span>
-                </label>
-              </div>
-            </div>
-
-            <div class="h-px bg-gradient-to-r from-transparent via-gray-200 to-transparent"></div>
-
-            <div>
-              <p class="text-sm font-bold text-gray-500 mb-4">Top Locations</p>
-              <div class="flex flex-wrap gap-3">
-                <span class="px-4 py-2 bg-teal-50 text-[#08a88a] rounded-xl text-xs font-black hover:bg-teal-100 cursor-pointer transition-colors uppercase tracking-tight">Berlin</span>
-                <span class="px-4 py-2 bg-white border border-gray-100 text-gray-500 rounded-xl text-xs font-black hover:border-[#08a88a] cursor-pointer transition-all uppercase tracking-tight">Munich</span>
-                <span class="px-4 py-2 bg-white border border-gray-100 text-gray-500 rounded-xl text-xs font-black hover:border-[#08a88a] cursor-pointer transition-all uppercase tracking-tight">Remote</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </aside>
-
-    <!-- RIGHT SECTION -->
-    <main class="flex-1 min-w-0">
+    <!-- 1. HERO & SEARCH SECTION -->
+    <div class="bg-[#08a88a] bg-gradient-to-br from-[#068d74] via-[#08a88a] to-[#20c997] pb-32 pt-6 px-6 md:px-12 w-full relative">
       
-      @if (isLoading()) {
-        <div class="flex flex-col items-center justify-center py-40">
-          <div class="relative w-20 h-20">
-            <div class="absolute top-0 w-full h-full border-4 border-teal-50 rounded-full"></div>
-            <div class="absolute top-0 w-full h-full border-4 border-[#08a88a] border-t-transparent rounded-full animate-spin"></div>
-          </div>
-          <p class="mt-8 text-[#08a88a] text-xl font-black animate-pulse">Scanning the market...</p>
+      <!-- TOP NAVBAR (Account Section) -->
+      <nav class="max-w-[1400px] mx-auto flex justify-between items-center mb-12">
+        <div class="text-white font-black text-2xl tracking-tighter">
+          JOB<span class="text-teal-200">HUB</span>
         </div>
-      } @else if (error()) {
-        <div class="bg-red-50 p-10 rounded-[2.5rem] border border-red-100 text-red-600 text-center">
-          <span class="text-4xl mb-4 block">⚠️</span>
-          <p class="font-black text-xl">{{ error() }}</p>
-        </div>
-      } @else {
         
-        <div class="flex justify-between items-center mb-10 px-4">
-            <h2 class="text-gray-900 font-black text-2xl tracking-tight">Latest Opportunities</h2>
-            <div class="flex items-center gap-2">
-                <span class="relative flex h-3 w-3">
-                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-teal-400 opacity-75"></span>
-                    <span class="relative inline-flex rounded-full h-3 w-3 bg-[#08a88a]"></span>
-                </span>
-                <span class="text-sm font-black text-[#08a88a] uppercase tracking-tighter">Live Database</span>
-            </div>
-        </div>
-
-        <div class="grid grid-cols-1 xl:grid-cols-2 gap-8">
-          @for (job of jobs(); track job.slug) {
-            <mat-card class="group !rounded-[2.5rem] !border-none !bg-white hover:!bg-[#08a88a]/5 shadow-[0_15px_50px_-20px_rgba(0,0,0,0.06)] hover:shadow-[0_30px_70px_-15px_rgba(8,168,138,0.2)] transition-all duration-700 cursor-pointer overflow-hidden relative border border-white">
-              
-              <!-- Hover Accent Line (Updated Color) -->
-             
-
-              <div class="p-10">
-                <div class="flex flex-col h-full justify-between items-start gap-6">
-                  
-                  <div class="w-full">
-                    <div class="flex justify-between items-start w-full">
-                        <span class="text-[#08a88a] text-sm font-black uppercase tracking-[0.2em] mb-3 block">
-                            {{ job.company_name }}
-                        </span>
-                        <span class="text-[11px] font-bold text-gray-300 uppercase tabular-nums bg-gray-50 px-3 py-1 rounded-full">
-                            {{ job.created_at * 1000 | date: 'MMM d' }}
-                        </span>
-                    </div>
-
-                    <h2 class="text-2xl md:text-3xl font-black text-gray-900 group-hover:text-[#08a88a] transition-colors leading-[1.1] mb-5">
-                      {{ job.title }}
-                    </h2>
-                    
-                    <div class="flex flex-wrap items-center gap-3 mb-8">
-                      <span class="flex items-center text-gray-600 text-sm font-bold bg-slate-100 px-4 py-2 rounded-2xl">
-                        <i class="fa-solid fa-location-dot mr-2 text-[#08a88a]"></i> {{ job.location }}
-                      </span>
-                      @if (job.remote) {
-                        <span class="text-[#08a88a] text-xs font-black bg-teal-50 px-4 py-2 rounded-2xl uppercase tracking-widest border border-teal-100">
-                           <i class="fa-solid fa-house-laptop mr-2"></i> Fully Remote
-                        </span>
-                      }
-                    </div>
-
-                    <div class="text-gray-500 text-base line-clamp-3 leading-relaxed mb-8 opacity-80" [innerHTML]="job.description"></div>
-                  </div>
-
-                  <div class="w-full flex items-center justify-between border-t border-gray-50 pt-8">
-                    <div class="flex flex-wrap gap-2">
-                      @for (tag of job.tags.slice(0, 3); track tag) {
-                        <span class="text-[10px] font-black text-teal-600 bg-teal-50 px-3 py-1 rounded-lg uppercase transition-colors">
-                          {{ tag }}
-                        </span>
-                      }
-                    </div>
-                    <button class="bg-gray-900 text-white text-xs font-black px-8 py-4 rounded-2xl hover:bg-[#08a88a] transition-all transform group-hover:translate-x-1 duration-500 shadow-xl shadow-gray-200 hover:shadow-[#08a88a]/30">
-                      Apply Now <i class="fa-solid fa-arrow-right ml-2"></i>
-                    </button>
-                  </div>
-                </div>
+        <div class="flex items-center gap-4">
+          @if (curretUser()) {
+            <div class="flex items-center gap-3 bg-white/10 backdrop-blur-md px-4 py-2 rounded-full border border-white/20 text-white cursor-pointer hover:bg-white/20 transition-all">
+              <div class="text-right hidden sm:block">
+                <p class="text-[10px] font-black uppercase opacity-60 leading-none">Welcome back</p>
+                <p class="text-sm font-bold">{{ curretUser()?.firstName }}</p>
               </div>
-            </mat-card>
+              <i class="fa-solid fa-circle-user text-3xl"></i>
+            </div>
+          } @else {
+            <button routerLink="/login" class="text-white font-bold hover:text-teal-100 transition-colors">Sign In</button>
+            <button routerLink="/register" class="bg-white text-[#08a88a] px-6 py-2 rounded-full font-bold shadow-lg hover:bg-teal-50 transition-all">Join Now</button>
           }
         </div>
+      </nav>
 
-        <!-- 3. PAGINATION -->
-        <div class="mt-24 flex justify-center items-center gap-6 pb-20">
-          <button (click)="loadJobs(currentPage() - 1)" [disabled]="currentPage() === 1"
-            class="w-16 h-16 flex items-center justify-center rounded-3xl bg-white border border-gray-100 shadow-sm text-gray-400 hover:text-[#08a88a] hover:border-teal-200 transition-all disabled:opacity-20">
-            <i class="fa-solid fa-chevron-left text-xl"></i>
-          </button>
+      <div class="w-full text-center mb-10">
+        <h1 class="text-4xl md:text-6xl font-extrabold text-white mb-4 tracking-tight">
+          Find your next <span class="text-teal-100 italic underline decoration-wavy underline-offset-8">dream career</span>.
+        </h1>
+        <p class="text-white/90 text-xl opacity-90">Explore thousands of job opportunities across Germany.</p>
+      </div>
 
-          <div class="bg-white border border-gray-100 px-10 py-5 rounded-[2rem] shadow-sm flex items-center gap-4">
-              <span class="text-xs font-black text-gray-400 uppercase tracking-[0.2em]">Discovery Page</span>
-              <span class="text-3xl font-black text-[#08a88a] leading-none">{{ currentPage() }}</span>
+      <!-- Floating Search Bar -->
+      <div class="w-full -mb-44 relative z-10">
+        <div class="bg-white p-3 rounded-2xl shadow-2xl flex flex-col md:flex-row gap-2 border border-white/20">
+          <div class="flex-1 flex items-center px-6 border-r border-gray-100">
+            <span class="text-xl mr-3 text-[#08a88a]"><i class="fa-solid fa-magnifying-glass"></i></span>
+            <input type="text" placeholder="Job title or company" 
+              class="w-full py-5 outline-none text-gray-700 font-medium text-lg placeholder:text-gray-400">
           </div>
-
-          <button (click)="loadJobs(currentPage() + 1)"
-            class="w-16 h-16 flex items-center justify-center rounded-3xl bg-[#08a88a] shadow-2xl shadow-[#08a88a]/30 text-white hover:bg-[#068d74] transition-all transform hover:scale-110 active:scale-95">
-            <i class="fa-solid fa-chevron-right text-xl"></i>
+          <div class="flex-1 flex items-center px-6">
+            <span class="text-xl mr-3 text-[#08a88a]"><i class="fa-solid fa-location-dot"></i></span>
+            <input type="text" placeholder="City or Remote" 
+              class="w-full py-5 outline-none text-gray-700 font-medium text-lg placeholder:text-gray-400">
+          </div>
+          <button class="bg-[#08a88a] hover:bg-[#068d74] text-white px-12 py-5 rounded-xl font-bold text-lg transition-all transform hover:scale-[1.01] active:scale-95 shadow-lg shadow-[#08a88a]/30">
+            Search Jobs
           </button>
         </div>
-      }
-    </main>
+      </div>
+    </div>
+
+    <!-- 2. MAIN CONTENT -->
+    <div class="flex-1 flex w-full px-6 md:px-12 pt-24 pb-20 gap-10 mt-10">
+
+      <!-- LEFT SIDEBAR (Sticky Filters) -->
+      <aside class="hidden lg:block w-80 shrink-0">
+        <div class="sticky top-10 space-y-6">
+          <div class="bg-white/70 backdrop-blur-md p-8 rounded-3xl border border-white shadow-sm">
+            <h3 class="font-black text-gray-900 text-xs uppercase tracking-widest mb-8">Filter Results</h3>
+            <div class="space-y-8">
+              <div>
+                <p class="text-sm font-bold text-gray-500 mb-4">Job Type</p>
+                <div class="flex flex-col gap-4">
+                  <label class="flex items-center group cursor-pointer">
+                    <div class="w-6 h-6 border-2 border-teal-100 rounded-lg group-hover:border-[#08a88a] transition-colors mr-3 flex items-center justify-center">
+                      <div class="w-2.5 h-2.5 bg-[#08a88a] rounded-sm opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                    </div>
+                    <span class="text-gray-700 font-semibold text-base group-hover:text-[#08a88a]">Full-time</span>
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </aside>
+
+      <!-- RIGHT SECTION -->
+      <main class="flex-1 min-w-0">
+        
+        @if (isLoading()) {
+          <div class="flex flex-col items-center justify-center py-40">
+            <div class="relative w-20 h-20">
+              <div class="absolute top-0 w-full h-full border-4 border-teal-50 rounded-full"></div>
+              <div class="absolute top-0 w-full h-full border-4 border-[#08a88a] border-t-transparent rounded-full animate-spin"></div>
+            </div>
+            <p class="mt-8 text-[#08a88a] text-xl font-black animate-pulse">Scanning the market...</p>
+          </div>
+        } @else {
+          
+          <div class="flex justify-between items-center mb-10 px-4">
+              <h2 class="text-gray-900 font-black text-2xl tracking-tight">Latest Opportunities</h2>
+              <div class="flex items-center gap-2">
+                  <span class="relative flex h-3 w-3">
+                      <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-teal-400 opacity-75"></span>
+                      <span class="relative inline-flex rounded-full h-3 w-3 bg-[#08a88a]"></span>
+                  </span>
+                  <span class="text-sm font-black text-[#08a88a] uppercase tracking-tighter">Live Feed</span>
+              </div>
+          </div>
+
+          <div class="grid grid-cols-1 xl:grid-cols-2 gap-8">
+            @for (job of jobs(); track job.slug) {
+              <mat-card class="group !rounded-[2.5rem] !border-none !bg-white hover:!bg-[#08a88a]/5 shadow-[0_15px_50px_-20px_rgba(0,0,0,0.06)] hover:shadow-[0_30px_70px_-15px_rgba(8,168,138,0.2)] transition-all duration-700 cursor-pointer overflow-hidden relative border border-white">
+                
+                <!-- FAVORITE BUTTON (Top Right - Conditional) -->
+                @if (curretUser()) {
+                  <button  (click)="addToFavorite(job.id)"
+                    class="absolute top-8 right-8 w-12 h-12 flex items-center justify-center rounded-full bg-slate-50 text-slate-300 hover:text-red-500 hover:bg-red-50 transition-all duration-300 z-20 group/fav shadow-sm border border-slate-100">
+                    <i class="fa-solid fa-heart text-xl group-hover/fav:scale-125 transition-transform"></i>
+                  </button>
+                }
+
+                <div class="p-10">
+                  <div class="flex flex-col h-full justify-between items-start gap-6">
+                    <div class="w-full">
+                      <div class="flex justify-between items-start w-full">
+                          <span class="text-[#08a88a] text-sm font-black uppercase tracking-[0.2em] mb-3 block">
+                              {{ job.company_name }}
+                          </span>
+                          <span class="text-[11px] font-bold text-gray-300 uppercase tabular-nums bg-gray-50 px-3 py-1 rounded-full">
+                              {{ job.created_at * 1000 | date: 'MMM d' }}
+                          </span>
+                      </div>
+
+                      <h2 class="text-2xl md:text-3xl font-black text-gray-900 group-hover:text-[#08a88a] transition-colors leading-[1.1] mb-5 pr-10">
+                        {{ job.title }}
+                      </h2>
+                      
+                      <div class="flex flex-wrap items-center gap-3 mb-8">
+                        <span class="flex items-center text-gray-600 text-sm font-bold bg-slate-100 px-4 py-2 rounded-2xl">
+                          <i class="fa-solid fa-location-dot mr-2 text-[#08a88a]"></i> {{ job.location }}
+                        </span>
+                      </div>
+
+                      <div class="text-gray-500 text-base line-clamp-3 leading-relaxed mb-8 opacity-80" [innerHTML]="job.description"></div>
+                    </div>
+
+                    <div class="w-full flex items-center justify-between border-t border-gray-50 pt-8">
+                      <div class="flex flex-wrap gap-2">
+                        @for (tag of job.tags.slice(0, 2); track tag) {
+                          <span class="text-[10px] font-black text-teal-600 bg-teal-50 px-3 py-1 rounded-lg uppercase">
+                            {{ tag }}
+                          </span>
+                        }
+                      </div>
+                      <button class="bg-gray-900 text-white text-xs font-black px-8 py-4 rounded-2xl hover:bg-[#08a88a] transition-all transform group-hover:translate-x-1 duration-500 shadow-xl shadow-gray-200 hover:shadow-[#08a88a]/30">
+                        Apply Now <i class="fa-solid fa-arrow-right ml-2"></i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </mat-card>
+            }
+          </div>
+
+          <!-- Pagination remains the same... -->
+        }
+      </main>
+    </div>
   </div>
-</div>

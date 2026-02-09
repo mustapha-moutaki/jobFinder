@@ -1,4 +1,5 @@
 export interface Job {
+  id?:number;
   slug: string;
   company_name: string;
   title: string;
