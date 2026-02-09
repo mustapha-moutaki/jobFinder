@@ -2,7 +2,7 @@ import { iterator } from "rxjs/internal/symbol/iterator"
 
 export interface RegisterRequest{
     firstName: string,
-    secondName:string,
+    lastName:string,
     email: string,
     password: string
 }

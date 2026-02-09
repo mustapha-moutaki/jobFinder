@@ -1,0 +1,66 @@
+<svg width="200" height="200" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background Glow -->
+  <circle cx="100" cy="100" r="85" fill="rgb(8, 168, 138)" opacity="0.1">
+    <animate attributeName="opacity" values="0.1;0.2;0.1" dur="2s" repeatCount="indefinite"/>
+  </circle>
+  
+  <!-- Document Background -->
+  <rect x="60" y="40" width="80" height="120" rx="8" fill="white" stroke="rgb(8, 168, 138)" stroke-width="3">
+    <animate attributeName="y" values="40;38;40" dur="3s" repeatCount="indefinite"/>
+  </rect>
+  
+  <!-- Document Header -->
+  <rect x="70" y="55" width="60" height="8" rx="4" fill="rgb(8, 168, 138)">
+    <animate attributeName="opacity" values="1;0.7;1" dur="2s" repeatCount="indefinite"/>
+  </rect>
+  
+  <!-- Form Lines -->
+  <line x1="70" y1="75" x2="130" y2="75" stroke="rgb(8, 168, 138)" stroke-width="2" opacity="0.3" stroke-linecap="round"/>
+  <line x1="70" y1="90" x2="130" y2="90" stroke="rgb(8, 168, 138)" stroke-width="2" opacity="0.3" stroke-linecap="round"/>
+  <line x1="70" y1="105" x2="130" y2="105" stroke="rgb(8, 168, 138)" stroke-width="2" opacity="0.3" stroke-linecap="round"/>
+  <line x1="70" y1="120" x2="110" y2="120" stroke="rgb(8, 168, 138)" stroke-width="2" opacity="0.3" stroke-linecap="round"/>
+  
+  <!-- Animated Writing Effect -->
+  <line x1="70" y1="135" x2="70" y2="135" stroke="rgb(8, 168, 138)" stroke-width="2" stroke-linecap="round">
+    <animate attributeName="x2" values="70;130;70" dur="3s" repeatCount="indefinite"/>
+  </line>
+  
+  <!-- Checkmark Circle -->
+  <circle cx="140" cy="140" r="20" fill="rgb(8, 168, 138)">
+    <animate attributeName="r" values="18;22;18" dur="2s" repeatCount="indefinite"/>
+  </circle>
+  
+  <!-- Animated Checkmark -->
+  <g opacity="0">
+    <polyline points="132,140 138,146 150,132" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+    <animate attributeName="opacity" values="0;1;1;1" dur="3s" repeatCount="indefinite"/>
+  </g>
+  
+  <!-- Pen Icon -->
+  <g transform="translate(145, 55)">
+    <rect x="0" y="0" width="4" height="15" fill="rgb(8, 168, 138)" transform="rotate(45 2 2)">
+      <animateTransform attributeName="transform" 
+                        type="rotate" 
+                        values="45 2 2;50 2 2;45 2 2" 
+                        dur="2s" 
+                        repeatCount="indefinite"/>
+    </rect>
+    <circle cx="2" cy="-2" r="2" fill="rgb(8, 168, 138)"/>
+  </g>
+  
+  <!-- Sparkles -->
+  <g opacity="0">
+    <path d="M 50 60 L 52 65 L 50 70 L 48 65 Z" fill="rgb(8, 168, 138)"/>
+    <animate attributeName="opacity" values="0;1;0" dur="2s" begin="0s" repeatCount="indefinite"/>
+  </g>
+  
+  <g opacity="0">
+    <path d="M 155 100 L 157 105 L 155 110 L 153 105 Z" fill="rgb(8, 168, 138)"/>
+    <animate attributeName="opacity" values="0;1;0" dur="2s" begin="0.7s" repeatCount="indefinite"/>
+  </g>
+  
+  <g opacity="0">
+    <path d="M 50 150 L 52 155 L 50 160 L 48 155 Z" fill="rgb(8, 168, 138)"/>
+    <animate attributeName="opacity" values="0;1;0" dur="2s" begin="1.4s" repeatCount="indefinite"/>
+  </g>
+</svg>

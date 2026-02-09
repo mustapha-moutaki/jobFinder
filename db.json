@@ -1,19 +1,13 @@
 {
-  "posts": [
+  "users": [
     {
-      "id": 1,
-      "title": "json-server",
-      "author": "typicode"
+      "firstName": "mustapha",
+      "lastName": "moutaki",
+      "email": "mustaphaamoutaki@gmail.com",
+      "password": "$2b$10$oFJlnp4a4RqCpWbPZ3a7oeF7i.CZNEoZcj5EZHkxcXK3UZh1Ushl6",
+      "id": 1
     }
   ],
-  "comments": [
-    {
-      "id": 1,
-      "body": "some comment",
-      "postId": 1
-    }
-  ],
-  "profile": {
-    "name": "typicode"
-  }
+  "favorites": [],
+  "condidats": []
 }

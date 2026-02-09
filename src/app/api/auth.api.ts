@@ -8,12 +8,12 @@ import { Observable } from "rxjs";
 
 export class AuthApi{
     private readonly http = inject(HttpClient);
-    private readonly baseUrl = `${environment.localApi}`;
+    private readonly baseUrl = `${environment.localApi}/users`;
 
 
     // register
     register(data: RegisterRequest): Observable<void>{
-        return this.http.post<void>(`${this.baseUrl}/register`, data);
+        return this.http.post<void>(`${this.baseUrl}`, data);
     }
     
 
