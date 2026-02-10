@@ -3,113 +3,123 @@ import { JobService } from '../../../core/services/jobs.service';
 import { Job } from '../../../core/models/job.model';
 import { CommonModule } from '@angular/common';
 import { MatInputModule } from '@angular/material/input';
-import { MatButtonModule, MatIconButton } from '@angular/material/button';
+import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { AuthService } from '../../../core/services/auth.service';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-jobs',
   standalone: true,
-  imports: [
-     CommonModule,
-    MatCardModule,
-    MatButtonModule,
-    MatInputModule
-  ],
+  imports: [CommonModule, MatCardModule, MatButtonModule, MatInputModule, RouterLink],
   templateUrl: './jobs.html'
 })
 export class Jobs implements OnInit {
-  private readonly jobService = inject(JobService);
-  private readonly authServce = inject(AuthService)
-  
-  jobs = signal<Job[]>([]);
-  isLoading = signal(false);
+  private readonly jobService = inject(JobService); 
+  private readonly authServce = inject(AuthService);
+
+  jobs = signal<Job[]>([]); 
+  isLoading = signal(false); 
   currentPage = signal(0);
+  
+
+  favoriteSlugs = signal<string[]>([]);
+  
+  hasNextPage = signal(false);
+  hasPrevPage = signal(false);
   error = signal('');
 
-
   ngOnInit(): void {
-    this.loadJobs(0);
-    this.authServce.getCurrentUser();
+    this.loadJobs(0); // Loading page 0 as per your backend
+    this.authServce.getCurrentUser(); 
+    this.loadUserFavorites(); 
   }
 
-  curretUser(){
+  curretUser() {
     return this.authServce.getCurrentUser();
+  }
+
+ 
+
+  loadUserFavorites() {
+  const user = this.curretUser();
+  if (user && user.id) {
+    this.jobService.getFavoritesByUserId(user.id).subscribe({
+      next: (favs: any[]) => { 
+        const slugs = favs.map(f => f.jobSlug);
+        this.favoriteSlugs.set(slugs);
+      },
+      error: (err) => console.error(err)
+    });
+  }
+}
+
+  isFavorite(slug: string): boolean {
+    return this.favoriteSlugs().includes(slug);
   }
 
   loadJobs(page: number) {
     this.isLoading.set(true);
-    this.error.set('');
-    
     this.jobService.getAllJobs(page).subscribe({
       next: (res: any) => {
-
-        this.jobs.set(res.data || []);
-        
-        this.currentPage.set(res.meta?.current_page || 0);
-        
+        this.jobs.set(res.data || []); 
+        this.currentPage.set(res.meta?.current_page || page);
+        this.hasNextPage.set(!!res.links?.next);
+        this.hasPrevPage.set(!!res.links?.prev); 
         this.isLoading.set(false);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
       },
-      error: (err) => {
-        this.error.set('Failed to load jobs');
-        this.isLoading.set(false);
+      error: () => {
+        this.error.set('Failed to load jobs'); 
+        this.isLoading.set(false); 
       }
     });
   }
 
-  private readonly idUser =  this.curretUser()?.id;
-
-  // add to favorite
-    addToFavorite(job: Job) {
+  addToFavorite(job: Job) {
     const user = this.curretUser();
-    
-    if (!user || !user.id) {
+    if (!user) {
       alert("Please login to save favorites");
       return;
     }
 
-    // We store the user ID and the job slug (unique identifier from the API)
+    // Check if already favorite to prevent duplicates
+    if (this.isFavorite(job.slug)) return;
+
     const favJob = {
       userId: user.id,
       jobSlug: job.slug,
-      jobTitle: job.title, // Optional: store title to display in favorite list later
+      jobTitle: job.title,
       company: job.company_name
     };
 
     this.jobService.addToFavorite(favJob).subscribe({
       next: () => {
-        alert("Saved to your local favorites!");
-      },
-      error: (err: any) => {
-        console.error("Make sure your json-server is running on port 3000", err);
-        alert("Could not save to local server.");
+        // Update local signal so heart turns red immediately in UI
+        this.favoriteSlugs.update(prev => [...prev, job.slug]);
       }
     });
 
     
   }
 
-
-
-<<<<<<< HEAD
   // paginatio 
+
   nextPage() {
-  this.loadJobs(this.currentPage() + 1);
-  window.scrollTo({ top: 0, behavior: 'smooth' }); 
-}
-
-prevPage() {
-  if (this.currentPage() > 0) {
-    this.loadJobs(this.currentPage() - 1);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    if (this.hasNextPage() && !this.isLoading()) {
+      this.loadJobs(this.currentPage() + 1); 
+    }
   }
-}
-=======
 
-  logout():void{
+  prevPage() {
+    if (this.hasPrevPage() && !this.isLoading()) {
+      this.loadJobs(this.currentPage() - 1);
+    }
+  }
+
+  logout(): void {
     this.authServce.logout();
-    console.log("logout successfully")
+    this.favoriteSlugs.set([]); 
   }
 
->>>>>>> develop
 }

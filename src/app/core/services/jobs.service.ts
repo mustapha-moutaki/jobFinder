@@ -5,14 +5,19 @@ import { Job, PageResponse } from "../models/job.model";
 
 @Injectable({providedIn: 'root'})
 export class JobService{
-    private readonly jobApi = inject(JobApi);
+    private readonly jobApi = inject(JobApi); 
     
-
-    getAllJobs(page: number =0): Observable<PageResponse<Job>>{
-         return this.jobApi.getAllJobs(page)
+    getAllJobs(page: number = 1): Observable<PageResponse<Job>> { 
+         return this.jobApi.getAllJobs(page); 
     }
 
-    addToFavorite(data:any):Observable<void>{
-        return this.jobApi.addToFavorite(data);
+    addToFavorite(data:any):Observable<void> {
+        return this.jobApi.addToFavorite(data); 
+    }
+
+    
+    // return  favorite job by userId
+    getFavoritesByUserId(id: number): Observable<any[]> {
+        return this.jobApi.getFavoritesByUserId(id);
     }
 }
