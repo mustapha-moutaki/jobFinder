@@ -1,6 +1,6 @@
 import { inject, Injectable } from "@angular/core";
 import { JobApi } from "../../api/jobs.api";
-import { Observable, retry } from "rxjs";
+import { map, Observable, retry } from "rxjs";
 import { Job, PageResponse } from "../models/job.model";
 
 @Injectable({providedIn: 'root'})
@@ -20,4 +20,11 @@ export class JobService{
     getFavoritesByUserId(id: number): Observable<any[]> {
         return this.jobApi.getFavoritesByUserId(id);
     }
+
+     
+    getJobBySlug(slug: string) {
+  return this.jobApi.getAllJobs(0, false, false).pipe(
+    map(response => response.data.find(job => job.slug === slug))
+  );
+}
 }

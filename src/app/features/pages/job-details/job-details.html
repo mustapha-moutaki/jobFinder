@@ -1,0 +1,131 @@
+<div class="min-h-screen bg-slate-50 font-sans pb-20">
+  
+  <!-- Loading State -->
+  @if (isLoading()) {
+    <div class="flex flex-col items-center justify-center min-h-[60vh]">
+      <div class="w-12 h-12 border-4 border-teal-100 border-t-[#08a88a] rounded-full animate-spin"></div>
+    </div>
+  }
+
+  @if (!isLoading() && job()) {
+    <!-- Hero Banner -->
+    <div class="bg-[#08a88a] pt-12 pb-24 px-6 relative">
+      <div class="max-w-[1200px] mx-auto">
+        <button routerLink="/" class="flex items-center text-white/80 hover:text-white mb-8 transition-colors text-sm font-bold">
+          <i class="fa-solid fa-arrow-left mr-2"></i> Back to search
+        </button>
+
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+          <div class="space-y-4">
+            <div class="flex flex-wrap gap-2">
+              @if (job()?.remote) {
+                <span class="bg-white/20 backdrop-blur-md text-white text-[10px] font-black uppercase px-3 py-1 rounded-full border border-white/30">
+                  Remote Available
+                </span>
+              }
+              <span class="text-teal-100 text-sm font-bold uppercase tracking-widest">
+                <i class="fa-solid fa-location-dot mr-1"></i> {{ job()?.location || 'Global' }}
+              </span>
+            </div>
+            
+            <h1 class="text-3xl md:text-5xl font-black text-white tracking-tight leading-tight">
+              {{ job()?.title || 'Job Opportunity' }}
+            </h1>
+            
+            <p class="text-xl text-teal-50 font-medium">
+              at <span class="underline decoration-teal-300 underline-offset-4">{{ job()?.company_name || 'Confidential' }}</span>
+            </p>
+          </div>
+
+          <div class="bg-black/10 backdrop-blur-md p-4 rounded-2xl border border-white/10 text-white text-center">
+            <p class="text-[10px] font-black uppercase opacity-60">Posted Date</p>
+            <p class="font-bold">{{ (job()!.created_at * 1000) | date:'MMM d, y' }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Content Grid -->
+    <div class="max-w-[1200px] mx-auto px-6 -mt-12">
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        
+        <!-- Left Column: Main Info -->
+        <div class="lg:col-span-2">
+          <div class="bg-white rounded-[2.5rem] p-8 md:p-12 shadow-sm border border-gray-100">
+            <h2 class="text-2xl font-black text-gray-900 mb-8 border-b border-gray-100 pb-4">Full Description</h2>
+            
+            <!-- Handle default description -->
+            <div class="description-content text-gray-600 leading-relaxed text-lg" 
+                 [innerHTML]="job()?.description || 'No detailed description available for this role.'">
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Column: Sidebar -->
+        <div class="lg:col-span-1 space-y-6">
+          
+          <!-- Apply Card -->
+          <div class="bg-white rounded-[2.5rem] p-8 shadow-xl shadow-teal-900/5 border border-gray-100 sticky top-6">
+            <button 
+              (click)="openApply(job()?.url)"
+              class="w-full bg-[#08a88a] hover:bg-[#068d74] text-white py-5 rounded-2xl font-black text-lg transition-all transform hover:scale-[1.02] shadow-lg shadow-[#08a88a]/20 mb-8">
+              Apply via Company <i class="fa-solid fa-external-link ml-2"></i>
+            </button>
+
+            <div class="space-y-6">
+              <!-- Tags Section -->
+              <div>
+                <p class="text-xs font-black text-gray-400 uppercase tracking-widest mb-4">Expertise Tags</p>
+                <div class="flex flex-wrap gap-2">
+                  @for (tag of job()?.tags; track tag) {
+                    <span class="bg-slate-100 text-slate-600 px-3 py-1.5 rounded-xl text-xs font-bold">
+                      {{ tag }}
+                    </span>
+                  } @empty {
+                    <span class="text-gray-400 text-sm">General Interest</span>
+                  }
+                </div>
+              </div>
+
+              <hr class="border-gray-50">
+
+              <!-- Contract Info -->
+              <div>
+                <p class="text-xs font-black text-gray-400 uppercase tracking-widest mb-4">Job Details</p>
+                <div class="space-y-3">
+                  <div class="flex items-center text-sm font-bold text-gray-700">
+                    <i class="fa-solid fa-briefcase w-6 text-[#08a88a]"></i>
+                    {{ job()?.job_types?.length ? job()?.job_types?.join(', ') : 'Permanent / Full-Time' }}
+                  </div>
+                  <div class="flex items-center text-sm font-bold text-gray-700">
+                    <i class="fa-solid fa-laptop-code w-6 text-[#08a88a]"></i>
+                    {{ job()?.remote ? '100% Remote Position' : 'On-site / Hybrid' }}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Mini Sidebar Info -->
+          <div class="bg-slate-900 rounded-[2.5rem] p-8 text-white">
+            <p class="text-[#08a88a] text-[10px] font-black uppercase mb-2">Employer Verification</p>
+            <h4 class="text-lg font-bold mb-4">About {{ job()?.company_name }}</h4>
+            <p class="text-white/60 text-sm leading-relaxed">
+              This opportunity was verified through Arbeitnow. Candidates are encouraged to check the original company link for latest updates.
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  }
+
+  <!-- Error / Not Found State -->
+  @if (!isLoading() && !job()) {
+    <div class="flex flex-col items-center justify-center min-h-[70vh] text-center px-6">
+      <h2 class="text-3xl font-black text-gray-900">Job Not Found</h2>
+      <p class="text-gray-500 mt-4 mb-8">The listing you're looking for might have expired or been removed.</p>
+      <button routerLink="/" class="bg-[#08a88a] text-white px-8 py-4 rounded-2xl font-bold">Back to Job List</button>
+    </div>
+  }
+</div> 

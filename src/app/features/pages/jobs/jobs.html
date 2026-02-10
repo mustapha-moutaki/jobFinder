@@ -1,11 +1,18 @@
 <div class="min-h-screen bg-slate-50 flex flex-col font-sans selection:bg-[#08a88a]/20">
-  <!-- HERO SECTION -->
+  <!-- 1. HERO & SEARCH SECTION -->
   <div class="bg-[#08a88a] bg-gradient-to-br from-[#068d74] via-[#08a88a] to-[#20c997] pb-32 pt-6 px-6 md:px-12 w-full relative">
+    
+    <!-- TOP NAVBAR -->
     <nav class="max-w-[1400px] mx-auto flex justify-between items-center mb-12">
-      <div class="text-white font-black text-2xl tracking-tighter">JOB<span class="text-teal-200">HUB</span></div>
+      <div class="text-white font-black text-2xl tracking-tighter cursor-pointer" routerLink="/">
+        JOB<span class="text-teal-200">HUB</span>
+      </div>
+
       <div class="flex items-center gap-4">
+        <!-- Modern Angular Control Flow: @if -->
         @if (curretUser()) {
           <div class="flex items-center gap-3">
+            <!-- Profile Pill -->
             <div class="flex items-center gap-3 bg-white/10 backdrop-blur-md px-4 py-2 rounded-full border border-white/20 text-white shadow-sm">
               <div class="text-right hidden sm:block">
                 <p class="text-[10px] font-black uppercase opacity-60 leading-none">Welcome back</p>
@@ -13,7 +20,11 @@
               </div>
               <i class="fa-solid fa-circle-user text-2xl text-teal-200"></i>
             </div>
-            <button (click)="logout()" class="flex items-center gap-2 bg-rose-500/10 hover:bg-rose-500/20 border border-rose-500/30 text-rose-200 px-4 py-2 rounded-full transition-all active:scale-95 group">
+
+            <!-- Logout Button -->
+            <button 
+              (click)="logout()" 
+              class="flex items-center gap-2 bg-rose-500/10 hover:bg-rose-500/20 border border-rose-500/30 text-rose-200 px-4 py-2 rounded-full transition-all active:scale-95 group">
               <span class="text-sm font-bold">Logout</span>
               <i class="fa-solid fa-right-from-bracket text-sm group-hover:translate-x-1 transition-transform"></i>
             </button>
@@ -26,31 +37,43 @@
     </nav>
 
     <div class="w-full text-center mb-10">
-      <h1 class="text-4xl md:text-6xl font-extrabold text-white mb-4 tracking-tight">Find your next <span class="text-teal-100 italic underline decoration-wavy underline-offset-8">dream career</span>.</h1>
+      <h1 class="text-4xl md:text-6xl font-extrabold text-white mb-4 tracking-tight">
+        Find your next <span class="text-teal-100 italic underline decoration-wavy underline-offset-8">dream career</span>.
+      </h1>
       <p class="text-white/90 text-xl opacity-90">Explore thousands of job opportunities across Germany.</p>
     </div>
 
-    <!-- Floating Search -->
+    <!-- Floating Search Bar -->
     <div class="w-full -mb-44 relative z-10">
       <div class="bg-white p-3 rounded-2xl shadow-2xl flex flex-col md:flex-row gap-2 border border-white/20">
         <div class="flex-1 flex items-center px-6 border-r border-gray-100">
           <span class="text-xl mr-3 text-[#08a88a]"><i class="fa-solid fa-magnifying-glass"></i></span>
-          <input type="text" placeholder="Job title or company" class="w-full py-5 outline-none text-gray-700 font-medium text-lg placeholder:text-gray-400"
-          (input)="onSearch($event)">
+          <input 
+            type="text" 
+            placeholder="Job title or company" 
+            class="w-full py-5 outline-none text-gray-700 font-medium text-lg placeholder:text-gray-400"
+            (input)="onSearch($event)">
         </div>
         <div class="flex-1 flex items-center px-6">
           <span class="text-xl mr-3 text-[#08a88a]"><i class="fa-solid fa-location-dot"></i></span>
-          <input type="text" placeholder="City or Remote" class="w-full py-5 outline-none text-gray-700 font-medium text-lg placeholder:text-gray-400">
+          <input 
+            type="text" 
+            placeholder="City or Remote" 
+            class="w-full py-5 outline-none text-gray-700 font-medium text-lg placeholder:text-gray-400">
         </div>
-         <button (click)="loadJobs(0)" class="bg-[#08a88a] hover:bg-[#068d74] text-white px-12 py-5 rounded-xl font-bold text-lg transition-all transform hover:scale-[1.01] active:scale-95 shadow-lg shadow-[#08a88a]/30">
+        <button 
+          (click)="loadJobs(0)" 
+          class="bg-[#08a88a] hover:bg-[#068d74] text-white px-12 py-5 rounded-xl font-bold text-lg transition-all transform hover:scale-[1.01] active:scale-95 shadow-lg shadow-[#08a88a]/30">
           Search Jobs
         </button>
       </div>
     </div>
   </div>
 
+  <!-- 2. MAIN CONTENT -->
   <div class="flex-1 flex w-full px-6 md:px-12 pt-24 pb-20 gap-10 mt-10">
-    <!-- LEFT SIDEBAR -->
+
+    <!-- LEFT SIDEBAR (Sticky Filters) -->
     <aside class="hidden lg:block w-80 shrink-0">
       <div class="sticky top-10 space-y-6">
         <div class="bg-white/70 backdrop-blur-md p-8 rounded-3xl border border-white shadow-sm">
@@ -93,6 +116,7 @@
       </div>
     </aside>
 
+    <!-- RIGHT MAIN SECTION -->
     <main class="flex-1 min-w-0">
       @if (isLoading()) {
         <div class="flex flex-col items-center justify-center py-40">
@@ -115,7 +139,7 @@
         </div>
 
         <div class="grid grid-cols-1 xl:grid-cols-2 gap-8">
-          <!-- FIXED: Use filteredJobs() instead of jobs() to enable the client-side search -->
+          <!-- Modern Angular Control Flow: @for with track -->
           @for (job of filteredJobs(); track job.slug) {
             <mat-card class="group !rounded-[2.5rem] !border-none !bg-white hover:!bg-[#08a88a]/5 shadow-[0_15px_50px_-20px_rgba(0,0,0,0.06)] transition-all duration-700 cursor-pointer overflow-hidden relative border border-white">
               
@@ -135,28 +159,41 @@
               <div class="p-10">
                 <div class="flex flex-col h-full justify-between items-start gap-6">
                   <div class="w-full">
-                    <span class="text-[#08a88a] text-sm font-black uppercase tracking-[0.2em] mb-3 block">{{ job.company_name }}</span>
-                    <h2 class="text-2xl md:text-3xl font-black text-gray-900 group-hover:text-[#08a88a] transition-colors leading-[1.1] mb-5 pr-10">{{ job.title }}</h2>
+                    <span class="text-[#08a88a] text-sm font-black uppercase tracking-[0.2em] mb-3 block">
+                      {{ job.company_name }}
+                    </span>
+                   <h2 
+  [routerLink]="['/jobs', job.slug]" 
+  class="text-2xl md:text-3xl font-black text-gray-900 group-hover:text-[#08a88a] transition-colors leading-[1.1] mb-5 pr-10 cursor-pointer">
+  {{ job.title }}
+</h2>
                     <div class="flex items-center text-gray-600 text-sm font-bold bg-slate-100 px-4 py-2 rounded-2xl w-fit mb-6">
                       <i class="fa-solid fa-location-dot mr-2 text-[#08a88a]"></i> {{ job.location }}
                     </div>
+                    <!-- Safe innerHTML binding -->
                     <div class="text-gray-500 text-base line-clamp-3 opacity-80" [innerHTML]="job.description"></div>
                   </div>
+
                   <div class="w-full flex items-center justify-between border-t border-gray-50 pt-8">
                     <div class="flex gap-2">
                       @for (tag of job.tags.slice(0, 2); track tag) {
-                        <span class="text-[10px] font-black text-teal-600 bg-teal-50 px-3 py-1 rounded-lg uppercase">{{ tag }}</span>
+                        <span class="text-[10px] font-black text-teal-600 bg-teal-50 px-3 py-1 rounded-lg uppercase">
+                          {{ tag }}
+                        </span>
                       }
                     </div>
-                    <button class="bg-gray-900 text-white text-xs font-black px-8 py-4 rounded-2xl hover:bg-[#08a88a] transition-all transform group-hover:translate-x-1 shadow-xl">
-                      Apply Now <i class="fa-solid fa-arrow-right ml-2"></i>
-                    </button>
+                    <!-- Correct RouterLink usage with Slug -->
+                  <button 
+            [routerLink]="['/jobs', job.slug]"
+            class="bg-gray-900 text-white text-xs font-black px-8 py-4 rounded-2xl hover:bg-[#08a88a] transition-all transform group-hover:translate-x-1 shadow-xl">
+            Apply Now <i class="fa-solid fa-arrow-right ml-2"></i>
+          </button>
                   </div>
                 </div>
               </div>
             </mat-card>
           } @empty {
-            <!-- FIXED: Show an empty state if search returns no results -->
+            <!-- Empty state when search/filter returns nothing -->
             <div class="col-span-full py-20 text-center bg-white rounded-[2.5rem] shadow-sm">
               <i class="fa-solid fa-magnifying-glass text-4xl text-gray-200 mb-4"></i>
               <p class="text-gray-500 font-bold">No jobs found matching "{{ searchQuery() }}"</p>
@@ -165,15 +202,22 @@
           }
         </div>
 
-        <!-- PAGINATION -->
+        <!-- PAGINATION SECTION -->
         <div class="mt-16 flex flex-col items-center gap-4">
-          <!-- FIXED: Display page number as 1-indexed (0 becomes Page 1) -->
-          <p class="text-sm text-gray-500 font-semibold">Page <span class="text-[#08a88a] font-black">{{ currentPage() + 1 }}</span></p>
+          <p class="text-sm text-gray-500 font-semibold">
+            Page <span class="text-[#08a88a] font-black">{{ currentPage() + 1 }}</span>
+          </p>
           <div class="flex items-center gap-4">
-            <button (click)="prevPage()" [disabled]="!hasPrevPage() || isLoading()" class="px-6 py-3 rounded-2xl bg-white border-2 border-gray-200 font-bold hover:border-[#08a88a] disabled:opacity-30 transition-all">
+            <button 
+              (click)="prevPage()" 
+              [disabled]="!hasPrevPage() || isLoading()" 
+              class="px-6 py-3 rounded-2xl bg-white border-2 border-gray-200 font-bold hover:border-[#08a88a] hover:text-[#08a88a] disabled:opacity-30 disabled:cursor-not-allowed transition-all">
               <i class="fa-solid fa-chevron-left mr-2"></i> Previous
             </button>
-            <button (click)="nextPage()" [disabled]="!hasNextPage() || isLoading()" class="px-6 py-3 rounded-2xl bg-white border-2 border-gray-200 font-bold hover:border-[#08a88a] disabled:opacity-30 transition-all">
+            <button 
+              (click)="nextPage()" 
+              [disabled]="!hasNextPage() || isLoading()" 
+              class="px-6 py-3 rounded-2xl bg-white border-2 border-gray-200 font-bold hover:border-[#08a88a] hover:text-[#08a88a] disabled:opacity-30 disabled:cursor-not-allowed transition-all">
               Next <i class="fa-solid fa-chevron-right ml-2"></i>
             </button>
           </div>
