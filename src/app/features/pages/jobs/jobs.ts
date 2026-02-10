@@ -87,4 +87,12 @@ export class Jobs implements OnInit {
     });
   }
 
+
+
+
+  logout():void{
+    this.authServce.logout();
+    console.log("logout successfully")
+  }
+
 }
