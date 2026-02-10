@@ -100,7 +100,6 @@
             <p class="mt-8 text-[#08a88a] text-xl font-black animate-pulse">Scanning the market...</p>
           </div>
         } @else {
-          
           <div class="flex justify-between items-center mb-10 px-4">
               <h2 class="text-gray-900 font-black text-2xl tracking-tight">Latest Opportunities</h2>
               <div class="flex items-center gap-2">
@@ -167,8 +166,33 @@
               </mat-card>
             }
           </div>
+          <!-- CHANGE: simplified pagination section to only show current page and previous/next buttons -->
+          <div class="mt-16 flex flex-col items-center gap-4">
+            <p class="text-sm text-gray-500 font-semibold">
+              <!-- CHANGE: display current page number coming from backend meta -->
+              Page <span class="text-[#08a88a] font-black">{{ currentPage() }}</span>
+            </p>
 
-          <!-- Pagination remains the same... -->
+            <div class="flex items-center gap-4">
+              <!-- CHANGE: previous page button based on hasPrevPage flag -->
+              <button 
+                (click)="prevPage()"
+                [disabled]="!hasPrevPage() || isLoading()"
+                class="flex items-center gap-2 px-6 py-3 rounded-2xl bg-white border-2 border-gray-200 text-gray-700 font-bold hover:border-[#08a88a] hover:bg-[#08a88a]/5 hover:text-[#08a88a] disabled:opacity-30 disabled:cursor-not-allowed transition-all shadow-sm hover:shadow-md active:scale-95">
+                <i class="fa-solid fa-chevron-left"></i>
+                <span class="hidden sm:inline">Previous</span>
+              </button>
+
+              <!-- CHANGE: next page button based on hasNextPage flag -->
+              <button 
+                (click)="nextPage()"
+                [disabled]="!hasNextPage() || isLoading()"
+                class="flex items-center gap-2 px-6 py-3 rounded-2xl bg-white border-2 border-gray-200 text-gray-700 font-bold hover:border-[#08a88a] hover:bg-[#08a88a]/5 hover:text-[#08a88a] disabled:opacity-30 disabled:cursor-not-allowed transition-all shadow-sm hover:shadow-md active:scale-95">
+                <span class="hidden sm:inline">Next</span>
+                <i class="fa-solid fa-chevron-right"></i>
+              </button>
+            </div>
+          </div>
         }
       </main>
     </div>
