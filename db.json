@@ -11,10 +11,17 @@
   "favorites": [
     {
       "userId": 1,
+      "jobSlug": "senior-product-manager-acquisition-munich-190154",
+      "jobTitle": "Senior Product Manager | Acquisition",
+      "company": "Atolls",
+      "id": 1
+    },
+    {
+      "userId": 1,
       "jobSlug": "remote-technical-account-manager-dach-munich-263830",
       "jobTitle": "Technical Account Manager - DACH",
       "company": "SolarEdge",
-      "id": 1
+      "id": 2
     }
   ],
   "condidats": []

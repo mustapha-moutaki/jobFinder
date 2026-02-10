@@ -22,4 +22,12 @@ export class JobApi {
     addToFavorite(data: {userId: number, jobSlug: string}): Observable<void> {
         return this.http.post<void>(`${this.localUrl}/favorites`, data);
     }
+
+
+
+     getFavoritesByUserId(userId: number): Observable<any[]> {
+        return this.http.get<any[]>(`${this.localUrl}/favorites?userId=${userId}`);
+    }
+
+
 }

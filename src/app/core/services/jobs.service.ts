@@ -5,13 +5,17 @@ import { Job, PageResponse } from "../models/job.model";
 
 @Injectable({providedIn: 'root'})
 export class JobService{
-    private readonly jobApi = inject(JobApi); // CHANGE: keep injected JobApi reference
+    private readonly jobApi = inject(JobApi); 
     
-    getAllJobs(page: number = 1): Observable<PageResponse<Job>> { // CHANGE: default to page 1 to match backend API (1-based)
-         return this.jobApi.getAllJobs(page); // CHANGE: forward pagination page to JobApi
+    getAllJobs(page: number = 1): Observable<PageResponse<Job>> { 
+         return this.jobApi.getAllJobs(page); 
     }
 
     addToFavorite(data:any):Observable<void> {
-        return this.jobApi.addToFavorite(data); // CHANGE: forward favorite payload to JobApi
+        return this.jobApi.addToFavorite(data); 
+    }
+
+    getFavoritesByUserId(id: number): Observable<any[]> {
+        return this.jobApi.getFavoritesByUserId(id);
     }
 }
