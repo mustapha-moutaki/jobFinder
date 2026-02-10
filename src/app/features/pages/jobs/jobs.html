@@ -48,19 +48,58 @@
 
   <!-- MAIN CONTENT -->
   <div class="flex-1 flex w-full px-6 md:px-12 pt-24 pb-20 gap-10 mt-10">
-    <aside class="hidden lg:block w-80 shrink-0">
-      <div class="sticky top-10 space-y-6">
-        <div class="bg-white/70 backdrop-blur-md p-8 rounded-3xl border border-white shadow-sm">
-          <h3 class="font-black text-gray-900 text-xs uppercase tracking-widest mb-8">Filter Results</h3>
+   <!-- LEFT SIDEBAR (Sticky Filters) -->
+<aside class="hidden lg:block w-80 shrink-0">
+  <div class="sticky top-10 space-y-6">
+    <div class="bg-white/70 backdrop-blur-md p-8 rounded-3xl border border-white shadow-sm">
+      <h3 class="font-black text-gray-900 text-xs uppercase tracking-widest mb-8">Filter Results</h3>
+      
+      <div class="space-y-8">
+        <!-- Benefit Filters -->
+        <div>
+          <p class="text-sm font-bold text-gray-500 mb-4">Job Preferences</p>
+          <div class="flex flex-col gap-4">
+            
+            <!-- Visa Sponsorship Toggle -->
+            <label class="flex items-center group cursor-pointer" (click)="toggleVisa()">
+              <div class="w-6 h-6 border-2 border-teal-100 rounded-lg group-hover:border-[#08a88a] transition-colors mr-3 flex items-center justify-center"
+                   [class.border-[#08a88a]]="visaFilter()" [class.bg-[#08a88a]/5]="visaFilter()">
+                <div class="w-2.5 h-2.5 bg-[#08a88a] rounded-sm transition-opacity"
+                     [class.opacity-100]="visaFilter()" [class.opacity-0]="visaFilter()"></div>
+              </div>
+              <span class="text-gray-700 font-semibold text-base group-hover:text-[#08a88a]"
+                    [class.text-[#08a88a]]="visaFilter()">Visa Sponsorship</span>
+            </label>
+
+            <!-- Remote Toggle -->
+            <label class="flex items-center group cursor-pointer" (click)="toggleRemote()">
+              <div class="w-6 h-6 border-2 border-teal-100 rounded-lg group-hover:border-[#08a88a] transition-colors mr-3 flex items-center justify-center"
+                   [class.border-[#08a88a]]="remoteFilter()" [class.bg-[#08a88a]/5]="remoteFilter()">
+                <div class="w-2.5 h-2.5 bg-[#08a88a] rounded-sm transition-opacity"
+                     [class.opacity-100]="remoteFilter()" [class.opacity-0]="remoteFilter()"></div>
+              </div>
+              <span class="text-gray-700 font-semibold text-base group-hover:text-[#08a88a]"
+                    [class.text-[#08a88a]]="remoteFilter()">Remote Work</span>
+            </label>
+
+          </div>
+        </div>
+
+        <!-- Existing Job Type (Optional) -->
+        <div>
+          <p class="text-sm font-bold text-gray-500 mb-4">Job Type</p>
           <label class="flex items-center group cursor-pointer">
             <div class="w-6 h-6 border-2 border-teal-100 rounded-lg group-hover:border-[#08a88a] transition-colors mr-3 flex items-center justify-center">
-              <div class="w-2.5 h-2.5 bg-[#08a88a] rounded-sm opacity-0 group-hover:opacity-100 transition-opacity"></div>
+              <div class="w-2.5 h-2.5 bg-[#08a88a] rounded-sm opacity-100"></div>
             </div>
-            <span class="text-gray-700 font-semibold text-base group-hover:text-[#08a88a]">Full-time</span>
+            <span class="text-gray-700 font-semibold text-base">Full-time</span>
           </label>
         </div>
+
       </div>
-    </aside>
+    </div>
+  </div>
+</aside>
 
     <main class="flex-1 min-w-0">
       @if (isLoading()) {

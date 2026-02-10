@@ -13,8 +13,14 @@ export class JobApi {
 
     private readonly localUrl = `${environment.localApi}`;
 
-    getAllJobs(page: number = 1): Observable<PageResponse<Job>> {
-        const params = new HttpParams().set('page', page.toString());
+    getAllJobs(page: number = 1, visa:boolean, remote:boolean): Observable<PageResponse<Job>> {
+        let params = new HttpParams().set('page', page.toString());
+        if(visa){
+            params = params.set('visa_sponsorship', 'true')
+        }if(remote){
+            params =  params.set('remote', 'true')
+        }
+        
         return this.http.get<PageResponse<Job>>(this.publicUrl, { params });
     }
 

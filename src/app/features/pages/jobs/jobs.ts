@@ -22,7 +22,10 @@ export class Jobs implements OnInit {
   isLoading = signal(false); 
   currentPage = signal(0);
   
-
+   // Filter signals
+  visaFilter = signal(false);
+  remoteFilter = signal(false);
+  
   favoriteSlugs = signal<string[]>([]);
   
   hasNextPage = signal(false);
@@ -122,4 +125,15 @@ export class Jobs implements OnInit {
     this.favoriteSlugs.set([]); 
   }
 
+
+
+
+
+
+
+
+//   remoteFilter(){}
+//   toggleRemote(){}
+//  visaFilter(){}
+//  toggleVisa(){}
 }

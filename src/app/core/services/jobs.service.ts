@@ -7,8 +7,8 @@ import { Job, PageResponse } from "../models/job.model";
 export class JobService{
     private readonly jobApi = inject(JobApi); 
     
-    getAllJobs(page: number = 1): Observable<PageResponse<Job>> { 
-         return this.jobApi.getAllJobs(page); 
+    getAllJobs(page: number = 1, visa:boolean=false, remote:boolean=false ): Observable<PageResponse<Job>> { 
+         return this.jobApi.getAllJobs(page, visa, remote); 
     }
 
     addToFavorite(data:any):Observable<void> {

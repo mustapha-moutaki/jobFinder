@@ -11,23 +11,25 @@
   "favorites": [
     {
       "userId": 1,
-      "jobSlug": "senior-product-manager-acquisition-munich-190154",
-      "jobTitle": "Senior Product Manager | Acquisition",
-      "company": "Atolls",
+      "jobSlug": "remote-technical-account-manager-dach-munich-263830",
+      "jobTitle": "Technical Account Manager - DACH",
+      "company": "SolarEdge",
       "id": 1
     },
     {
       "userId": 1,
-      "jobSlug": "remote-technical-account-manager-dach-munich-263830",
-      "jobTitle": "Technical Account Manager - DACH",
-      "company": "SolarEdge",
+      "jobSlug": "assistenz-buchhaltung-20-30-h-woche-im-homeoffice-neuss-445194",
+      "jobTitle": "Assistenz Buchhaltung (m/w/d) 20-30 h/Woche im Homeoffice",
+      "company": "smartkündigen OHG",
       "id": 2
+    },
+    {
+      "userId": 1,
+      "jobSlug": "senior-ux-ui-designer-figma-mes-anwendungen-munich-32610",
+      "jobTitle": "Senior UX-/UI-Designer (Figma) - MES-Anwendungen (m/w/d)",
+      "company": "nakami lounge GmbH",
+      "id": 3
     }
   ],
   "condidats": []
-<<<<<<< HEAD
 }
-
-=======
-}
->>>>>>> develop
