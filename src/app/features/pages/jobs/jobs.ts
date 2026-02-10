@@ -89,6 +89,7 @@ export class Jobs implements OnInit {
 
 
 
+<<<<<<< HEAD
   // paginatio 
   nextPage() {
   this.loadJobs(this.currentPage() + 1);
@@ -101,4 +102,12 @@ prevPage() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 }
+=======
+
+  logout():void{
+    this.authServce.logout();
+    console.log("logout successfully")
+  }
+
+>>>>>>> develop
 }
