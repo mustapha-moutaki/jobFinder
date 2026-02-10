@@ -22,7 +22,7 @@ export class Jobs implements OnInit {
   isLoading = signal(false); 
   currentPage = signal(0);
   
-  // NEW: Store favorite slugs to check against
+
   favoriteSlugs = signal<string[]>([]);
   
   hasNextPage = signal(false);
@@ -45,7 +45,7 @@ export class Jobs implements OnInit {
   const user = this.curretUser();
   if (user && user.id) {
     this.jobService.getFavoritesByUserId(user.id).subscribe({
-      next: (favs: any[]) => { // Now this matches Observable<any[]>
+      next: (favs: any[]) => { 
         const slugs = favs.map(f => f.jobSlug);
         this.favoriteSlugs.set(slugs);
       },
@@ -115,6 +115,6 @@ export class Jobs implements OnInit {
 
   logout(): void {
     this.authServce.logout();
-    this.favoriteSlugs.set([]); // Clear favorites on logout
+    this.favoriteSlugs.set([]); 
   }
 }
