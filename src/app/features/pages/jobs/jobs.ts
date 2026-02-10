@@ -22,18 +22,17 @@ export class Jobs implements OnInit {
   isLoading = signal(false); 
   currentPage = signal(0);
   
-   // Filter signals
+  // Filter signals
   visaFilter = signal(false);
   remoteFilter = signal(false);
   
   favoriteSlugs = signal<string[]>([]);
-  
   hasNextPage = signal(false);
   hasPrevPage = signal(false);
   error = signal('');
 
   ngOnInit(): void {
-    this.loadJobs(0); // Loading page 0 as per your backend
+    this.loadJobs(0); 
     this.authServce.getCurrentUser(); 
     this.loadUserFavorites(); 
   }
@@ -42,20 +41,18 @@ export class Jobs implements OnInit {
     return this.authServce.getCurrentUser();
   }
 
- 
-
   loadUserFavorites() {
-  const user = this.curretUser();
-  if (user && user.id) {
-    this.jobService.getFavoritesByUserId(user.id).subscribe({
-      next: (favs: any[]) => { 
-        const slugs = favs.map(f => f.jobSlug);
-        this.favoriteSlugs.set(slugs);
-      },
-      error: (err) => console.error(err)
-    });
+    const user = this.curretUser();
+    if (user && user.id) {
+      this.jobService.getFavoritesByUserId(user.id).subscribe({
+        next: (favs: any[]) => { 
+          const slugs = favs.map(f => f.jobSlug);
+          this.favoriteSlugs.set(slugs);
+        },
+        error: (err) => console.error(err)
+      });
+    }
   }
-}
 
   isFavorite(slug: string): boolean {
     return this.favoriteSlugs().includes(slug);
@@ -63,10 +60,15 @@ export class Jobs implements OnInit {
 
   loadJobs(page: number) {
     this.isLoading.set(true);
-    this.jobService.getAllJobs(page).subscribe({
+    // Pass page, visa, and remote filters to the service
+    this.jobService.getAllJobs(page, this.visaFilter(), this.remoteFilter()).subscribe({
       next: (res: any) => {
         this.jobs.set(res.data || []); 
-        this.currentPage.set(res.meta?.current_page || page);
+        
+        // Normalize 1-based backend page to 0-based frontend page
+        const backendPage = res.meta?.current_page;
+        this.currentPage.set(backendPage !== undefined ? backendPage - 1 : page);
+        
         this.hasNextPage.set(!!res.links?.next);
         this.hasPrevPage.set(!!res.links?.prev); 
         this.isLoading.set(false);
@@ -79,34 +81,23 @@ export class Jobs implements OnInit {
     });
   }
 
-  addToFavorite(job: Job) {
-    const user = this.curretUser();
-    if (!user) {
-      alert("Please login to save favorites");
-      return;
-    }
+  // --- FILTER LOGIC ---
 
-    // Check if already favorite to prevent duplicates
-    if (this.isFavorite(job.slug)) return;
-
-    const favJob = {
-      userId: user.id,
-      jobSlug: job.slug,
-      jobTitle: job.title,
-      company: job.company_name
-    };
-
-    this.jobService.addToFavorite(favJob).subscribe({
-      next: () => {
-        // Update local signal so heart turns red immediately in UI
-        this.favoriteSlugs.update(prev => [...prev, job.slug]);
-      }
-    });
-
-    
+  toggleVisa() {
+    this.visaFilter.update(v => !v);
+    this.onFilterChange();
   }
 
-  // paginatio 
+  toggleRemote() {
+    this.remoteFilter.update(v => !v);
+    this.onFilterChange();
+  }
+
+  onFilterChange() {
+    this.loadJobs(0); // 
+  }
+
+  // --- PAGINATION ---
 
   nextPage() {
     if (this.hasNextPage() && !this.isLoading()) {
@@ -120,20 +111,32 @@ export class Jobs implements OnInit {
     }
   }
 
+  // --- OTHERS ---
+
+  addToFavorite(job: Job) {
+    const user = this.curretUser();
+    if (!user) {
+      alert("Please login to save favorites");
+      return;
+    }
+    if (this.isFavorite(job.slug)) return;
+
+    const favJob = {
+      userId: user.id,
+      jobSlug: job.slug,
+      jobTitle: job.title,
+      company: job.company_name
+    };
+
+    this.jobService.addToFavorite(favJob).subscribe({
+      next: () => {
+        this.favoriteSlugs.update(prev => [...prev, job.slug]);
+      }
+    });
+  }
+
   logout(): void {
     this.authServce.logout();
     this.favoriteSlugs.set([]); 
   }
-
-
-
-
-
-
-
-
-//   remoteFilter(){}
-//   toggleRemote(){}
-//  visaFilter(){}
-//  toggleVisa(){}
 }
