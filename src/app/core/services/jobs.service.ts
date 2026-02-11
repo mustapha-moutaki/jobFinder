@@ -2,6 +2,7 @@ import { inject, Injectable } from "@angular/core";
 import { JobApi } from "../../api/jobs.api";
 import { map, Observable, retry } from "rxjs";
 import { Job, PageResponse } from "../models/job.model";
+import { Condidat } from "../models/condidat.model";
 
 @Injectable({providedIn: 'root'})
 export class JobService{
@@ -26,5 +27,16 @@ export class JobService{
   return this.jobApi.getAllJobs(0, false, false).pipe(
     map(response => response.data.find(job => job.slug === slug))
   );
+
+  }
+
+
+
+  // add to
+  addToCondidat(userId: number,  jobSlug: string){
+    return this.jobApi.addToCondidat(userId, jobSlug);
+  }
+
+
 }
-}
+
