@@ -1,14 +1,15 @@
 import { HttpClient, HttpParams } from "@angular/common/http";
 import { inject, Injectable } from "@angular/core";
 import { environment } from "../../environments/environment.development";
-import { Observable } from "rxjs";
+import { catchError, Observable, of, retry } from "rxjs";
 import { Job, PageResponse } from "../core/models/job.model";
+import { Condidat } from "../core/models/condidat.model";
 
 @Injectable({providedIn: 'root'})
 export class JobApi {
     private readonly http = inject(HttpClient);
     
-    // URL for Arbeitnow (GET ONLY)
+ 
     private readonly publicUrl = `${environment.publicApi}`;
 
     private readonly localUrl = `${environment.localApi}`;
@@ -24,7 +25,7 @@ export class JobApi {
         return this.http.get<PageResponse<Job>>(this.publicUrl, { params });
     }
 
-    // Change the URL here to point to localUrl
+    
     addToFavorite(data: {userId: number, jobSlug: string}): Observable<void> {
         return this.http.post<void>(`${this.localUrl}/favorites`, data);
     }
@@ -34,6 +35,19 @@ export class JobApi {
      getFavoritesByUserId(userId: number): Observable<any[]> {
         return this.http.get<any[]>(`${this.localUrl}/favorites?userId=${userId}`);
     }
+
+
+    addToCondidat(userId: number, jobSlug: string): Observable<Condidat|null>{
+        const condidat:Condidat={userId, jobSlug, status:'pending'}
+
+        return this.http.post<Condidat>(`${this.localUrl}/condidats`, condidat).pipe(
+            catchError(err=>{
+                console.log("Failed to save in db", err);
+                return of (null);
+            })
+        )
+    }
+
 
 
 }
