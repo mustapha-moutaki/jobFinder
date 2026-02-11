@@ -1,8 +1,10 @@
 import { Component, OnInit, inject, signal } from '@angular/core';
 import { CommonModule, DatePipe } from '@angular/common';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { JobService } from '../../../core/services/jobs.service';
 import { Job } from '../../../core/models/job.model';
+import { Condidat } from '../../../core/models/condidat.model';
+import { AuthService } from '../../../core/services/auth.service';
 
 @Component({
   selector: 'app-job-details',
@@ -10,7 +12,6 @@ import { Job } from '../../../core/models/job.model';
   imports: [CommonModule, RouterLink, DatePipe],
   templateUrl: './job-details.html',
   styles: [`
-    /* Custom styles for the HTML description injected from API */
     :host ::ng-deep .description-content ul { list-style: disc; margin-left: 1.5rem; margin-bottom: 1rem; }
     :host ::ng-deep .description-content p { margin-bottom: 1rem; }
     :host ::ng-deep .description-content h2 { font-size: 1.5rem; font-weight: 800; margin-top: 2rem; margin-bottom: 1rem; }
@@ -19,6 +20,7 @@ import { Job } from '../../../core/models/job.model';
 export class JobDetails implements OnInit {
   private route = inject(ActivatedRoute);
   private jobService = inject(JobService);
+  private authService = inject(AuthService);
 
   job = signal<Job | null>(null);
   isLoading = signal(true);
@@ -36,10 +38,29 @@ export class JobDetails implements OnInit {
     }
   }
 
+  
+  
+// openApply
+ 
+  openApply(job: Job | null){
+    if(!job) return ;
+    const currentUser = this.authService.getCurrentUser();
 
-  // hna bghina n mchiw seet oficial dyalhom but in new window
+    if(!currentUser){
+      console.log("user not logged in");
+      return ;
+    }
 
-  openApply(url: string | undefined) {
-    if (url) window.open(url, '_blank');
+    this.jobService.addToCondidat(currentUser.id!, job.slug).subscribe({
+      next: ()=>{
+        console.log("the condidat saved");
+        setTimeout(()=>{
+          console.log("redirecting ...");
+         window.open(job.url, '_blank');
+        })
+      }, error: (err)=>[
+        console.log("failed to save the condidat", err)
+      ]
+    })
   }
 }

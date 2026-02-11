@@ -55,12 +55,11 @@ export class Jobs implements OnInit {
 
     // DEBOUNCE LOGIC
     this.searchSubject.pipe(
-      debounceTime(500), // Changed from 3000ms to 500ms for better UX
+      debounceTime(500),
       distinctUntilChanged()
     ).subscribe(value => {
       this.searchQuery.set(value); 
-      // NOTE: We do NOT call loadJobs(0) here because the API cannot filter.
-      // The 'filteredJobs' computed signal handles the UI update.
+     
     });
   }
 
