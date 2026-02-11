@@ -36,7 +36,34 @@
       "jobTitle": "Senior Graphic Designer (m/f/d)",
       "company": "Ninox Software GmbH",
       "id": 4
+    },
+    {
+      "userId": 1,
+      "jobSlug": "senior-product-manager-acquisition-munich-190154",
+      "jobTitle": "Senior Product Manager | Acquisition",
+      "company": "Atolls",
+      "id": 5
+    },
+    {
+      "userId": 1,
+      "jobSlug": "social-media-creator-host-x-berlin-259744",
+      "jobTitle": "Social Media Creator & Host (w/f/m/x)",
+      "company": "MILES Mobility",
+      "id": 6
     }
   ],
-  "condidats": []
+  "condidats": [
+    {
+      "userId": 1,
+      "jobSlug": "junior-consultant-fur-den-bereich-tech-hamburg-135993",
+      "status": "pending",
+      "id": 1
+    },
+    {
+      "userId": 1,
+      "jobSlug": "werkstudent-data-munich-347542",
+      "status": "pending",
+      "id": 2
+    }
+  ]
 }
