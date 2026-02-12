@@ -39,9 +39,7 @@ export class JobDetails implements OnInit {
   }
 
   
-  
-// openApply
- 
+
   openApply(job: Job | null){
     if(!job) return ;
     const currentUser = this.authService.getCurrentUser();
