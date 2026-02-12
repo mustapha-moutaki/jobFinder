@@ -1,15 +1,13 @@
 {
   "users": [
     {
-      "firstName": "mustapha",
+      "firstName": "mustaphaddddd",
       "lastName": "moutaki",
-      "email": "mustaphaamoutaki@gmail.com",
-      "password": "$2b$10$oFJlnp4a4RqCpWbPZ3a7oeF7i.CZNEoZcj5EZHkxcXK3UZh1Ushl6",
+      "email": "mustapha@gmail.com",
+      "password": "$2b$10$JHyhX/0u.vRseMqxcmsn9ev8BsZjmKLgMJCvX2UvSUX3dfJnqUJtq",
       "id": 1
     }
   ],
-  "favorites": [
-    
-  ],
+  "favorites": [],
   "condidats": []
 }

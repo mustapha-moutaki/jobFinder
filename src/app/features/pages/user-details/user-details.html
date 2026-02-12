@@ -1,0 +1,35 @@
+<div class="container">
+  <mat-card class="user-card">
+
+    <mat-card-title>Update Account</mat-card-title>
+
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>First Name</mat-label>
+        <input matInput formControlName="firstName" />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Last Name</mat-label>
+        <input matInput formControlName="lastName" />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Email</mat-label>
+        <input matInput formControlName="email" />
+      </mat-form-field>
+
+            <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Password</mat-label>
+        <input matInput type="password" formControlName="password" />
+        </mat-form-field>
+
+      <button type="submit" mat-raised-button color="primary" class="full-width">
+  Update Account
+</button>
+
+    </form>
+
+  </mat-card>
+</div>

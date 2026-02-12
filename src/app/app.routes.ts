@@ -4,6 +4,7 @@ import { AuthLayout } from './core/layout/auth-layout/AuthLayout';
 import { Login } from './features/pages/auth/login/login';
 import { Jobs } from './features/pages/jobs/jobs';
 import { JobDetails } from './features/pages/job-details/job-details';
+import { UserDetails } from './features/pages/user-details/user-details';
 
 export const routes: Routes = [
      {
@@ -13,6 +14,10 @@ export const routes: Routes = [
     {
         path: 'jobs/:slug', 
         component: JobDetails
+   },
+   {
+        path: 'profile',
+        component: UserDetails
    },
     {
         path: 'auth',
