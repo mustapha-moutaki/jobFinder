@@ -51,6 +51,8 @@ export class Jobs implements OnInit {
     );
   });
 
+
+
   ngOnInit(): void {
     this.loadJobs(0); 
 
@@ -67,6 +69,10 @@ export class Jobs implements OnInit {
       this.searchQuery.set(value); 
     });
   }
+
+
+
+
 
   // 3. STATE MANAGEMENT: Modified function to use dispatch
   addToFavorite(job: Job) {
@@ -87,11 +93,18 @@ export class Jobs implements OnInit {
     return this.favoriteSlugs().includes(slug);
   }
 
+
+
+
   // Helper Methods
   onSearch(event: Event) {
     const input = event.target as HTMLInputElement;
     this.searchSubject.next(input.value);
   }
+
+
+
+
 
   loadJobs(page: number) {
     this.isLoading.set(true);
@@ -112,9 +125,16 @@ export class Jobs implements OnInit {
     });
   }
 
+
+
+
   curretUser() {
     return this.authServce.getCurrentUser();
   }
+
+
+
+  
 
   toggleVisa() { this.visaFilter.update(v => !v); this.loadJobs(0); }
   toggleRemote() { this.remoteFilter.update(v => !v); this.loadJobs(0); }

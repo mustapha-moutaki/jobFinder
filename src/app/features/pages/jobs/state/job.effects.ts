@@ -24,6 +24,7 @@ export class JobEffects {
     )
   );
 
+  
   // Effect to add a favorite to API
   addToFavorite$ = createEffect(() =>
     this.actions$.pipe(

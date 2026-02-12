@@ -12,3 +12,6 @@ export const selectIsLoadingFavorite = createSelector(
   selectJobState,
   (state) => state.loading
 );
+
+
+

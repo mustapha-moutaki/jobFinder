@@ -46,3 +46,4 @@ export const jobReducer = createReducer(
     error: null
   }))
 );
+
