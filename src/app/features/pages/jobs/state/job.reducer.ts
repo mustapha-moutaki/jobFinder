@@ -15,7 +15,6 @@ export const initialState: JobState = {
 
 export const jobReducer = createReducer(
   initialState,
-  
   // Load Favorites
   on(JobActions.loadFavoritesSuccess, (state, { slugs }) => ({
     ...state,
