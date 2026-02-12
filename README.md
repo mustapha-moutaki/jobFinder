@@ -27,19 +27,4 @@ addToCondidats(userId: number, jobSlug: string): Observable<Condidat | null> {
 
 
 
-
-// jobsDetails
-openApply(job: Job | null) {
-
-  if (!job) return;
-
-  // concept 1: get current authenticated user from AuthService
-  const currentUser = this.authService.getCurrentUser();
-
-  if (!currentUser) {
-    console.log('User not logged in');
-    return;
-  }
-
-
 ```
