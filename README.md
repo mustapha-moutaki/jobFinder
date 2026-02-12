@@ -41,25 +41,5 @@ openApply(job: Job | null) {
     return;
   }
 
-  console.log('User clicked Apply button');
-  // concept 2: synchronous action (console.log)
-
-  // concept 3: HTTP POST via Observable
-  this.jobService.addToCondidats(currentUser.id!, job.slug).subscribe({
-    next: () => {
-      console.log('Candidature saved in database');
-
-      // concept 4: delayed execution (setTimeout)
-      setTimeout(() => {
-        console.log('Redirecting to official website...');
-        window.open(job.url!, '_blank');
-      }, 3000);
-    },
-    error: (err) => {
-      console.error('Error while saving candidature', err);
-    }
-  });
-}
-
 
 ```
