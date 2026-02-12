@@ -37,8 +37,8 @@ export class JobApi {
     }
 
 
-    addToCondidat(userId: number, jobSlug: string): Observable<Condidat|null>{
-        const condidat:Condidat={userId, jobSlug, status:'pending'}
+    addToCondidat(userId: number, jobSlug: string, title: string, company:string, location: string): Observable<Condidat|null>{
+        const condidat:Condidat={userId, jobSlug, title, company, location:'unknown' ,status:'pending'}
 
         return this.http.post<Condidat>(`${this.localUrl}/condidats`, condidat).pipe(
             catchError(err=>{

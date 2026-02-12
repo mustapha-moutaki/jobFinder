@@ -9,6 +9,11 @@ import { AuthService } from '../../../core/services/auth.service';
 import { RouterLink } from '@angular/router';
 import { debounceTime, distinctUntilChanged, Subject } from 'rxjs';
 
+// NgRx Imports
+import { Store } from '@ngrx/store';
+import * as JobActions from './state/job.actions';
+import * as JobSelectors from './state/job.selectors';
+
 @Component({
   selector: 'app-jobs',
   standalone: true,
@@ -18,30 +23,28 @@ import { debounceTime, distinctUntilChanged, Subject } from 'rxjs';
 export class Jobs implements OnInit {
   private readonly jobService = inject(JobService); 
   private readonly authServce = inject(AuthService);
+  private readonly store = inject(Store); 
 
-  // Raw data from API
+  // 1. STATE MANAGEMENT: Connect selectors to Signals
+  favoriteSlugs = this.store.selectSignal(JobSelectors.selectFavoriteSlugs);
+  isAddingFavorite = this.store.selectSignal(JobSelectors.selectIsLoadingFavorite);
+
   jobs = signal<Job[]>([]); 
   isLoading = signal(false); 
   currentPage = signal(0);
-  
-  // Filters and Search
   visaFilter = signal(false);
   remoteFilter = signal(false);
   searchQuery = signal('');
   private searchSubject = new Subject<string>();
   
-  favoriteSlugs = signal<string[]>([]);
   hasNextPage = signal(false);
   hasPrevPage = signal(false);
   error = signal('');
 
-  // FILTER LOGIC: This updates automatically when jobs() or searchQuery() changes
   filteredJobs = computed(() => {
     const query = this.searchQuery().toLowerCase().trim();
     const allJobs = this.jobs();
-
     if (!query) return allJobs; 
-
     return allJobs.filter(job => 
       job.title.toLowerCase().includes(query) || 
       job.company_name.toLowerCase().includes(query)
@@ -50,19 +53,41 @@ export class Jobs implements OnInit {
 
   ngOnInit(): void {
     this.loadJobs(0); 
-    this.authServce.getCurrentUser(); 
-    this.loadUserFavorites(); 
 
-    // DEBOUNCE LOGIC
+    // 2. STATE MANAGEMENT: Load initial favorites from DB via NgRx
+    const user = this.authServce.getCurrentUser(); 
+    if (user?.id) {
+      this.store.dispatch(JobActions.loadFavorites({ userId: user.id }));
+    }
+
     this.searchSubject.pipe(
       debounceTime(500),
       distinctUntilChanged()
     ).subscribe(value => {
       this.searchQuery.set(value); 
-     
     });
   }
 
+  // 3. STATE MANAGEMENT: Modified function to use dispatch
+  addToFavorite(job: Job) {
+    const user = this.curretUser();
+    if (!user || this.isFavorite(job.slug)) return;
+
+    // Dispatch the action to trigger the Effect and Reducer
+    this.store.dispatch(JobActions.addToFavorite({
+      userId: user.id!,
+      jobSlug: job.slug,
+      jobTitle: job.title,
+      company: job.company_name
+    }));
+  }
+
+  // 4. STATE MANAGEMENT: Logic now uses the Store-linked Signal
+  isFavorite(slug: string): boolean {
+    return this.favoriteSlugs().includes(slug);
+  }
+
+  // Helper Methods
   onSearch(event: Event) {
     const input = event.target as HTMLInputElement;
     this.searchSubject.next(input.value);
@@ -70,7 +95,6 @@ export class Jobs implements OnInit {
 
   loadJobs(page: number) {
     this.isLoading.set(true);
-    // API only handles page and boolean filters
     this.jobService.getAllJobs(page, this.visaFilter(), this.remoteFilter()).subscribe({
       next: (res: any) => {
         this.jobs.set(res.data || []); 
@@ -88,68 +112,17 @@ export class Jobs implements OnInit {
     });
   }
 
-  loadUserFavorites() {
-    const user = this.curretUser();
-    if (user && user.id) {
-      this.jobService.getFavoritesByUserId(user.id).subscribe({
-        next: (favs: any[]) => { 
-          const slugs = favs.map(f => f.jobSlug);
-          this.favoriteSlugs.set(slugs);
-        }
-      });
-    }
-  }
-
   curretUser() {
     return this.authServce.getCurrentUser();
   }
 
-  isFavorite(slug: string): boolean {
-    return this.favoriteSlugs().includes(slug);
-  }
-
-  toggleVisa() {
-    this.visaFilter.update(v => !v);
-    this.loadJobs(0); 
-  }
-
-  toggleRemote() {
-    this.remoteFilter.update(v => !v);
-    this.loadJobs(0); 
-  }
-
-  nextPage() {
-    if (this.hasNextPage() && !this.isLoading()) {
-      this.loadJobs(this.currentPage() + 1); 
-    }
-  }
-
-  prevPage() {
-    if (this.hasPrevPage() && !this.isLoading()) {
-      this.loadJobs(this.currentPage() - 1);
-    }
-  }
-
-  addToFavorite(job: Job) {
-    const user = this.curretUser();
-    if (!user || this.isFavorite(job.slug)) return;
-
-    const favJob = {
-      userId: user.id,
-      jobSlug: job.slug,
-      jobTitle: job.title,
-      company: job.company_name
-    };
-
-    this.jobService.addToFavorite(favJob).subscribe({
-      next: () => {
-        this.favoriteSlugs.update(prev => [...prev, job.slug]);
-      }
-    });
-  }
+  toggleVisa() { this.visaFilter.update(v => !v); this.loadJobs(0); }
+  toggleRemote() { this.remoteFilter.update(v => !v); this.loadJobs(0); }
+  nextPage() { if (this.hasNextPage() && !this.isLoading()) this.loadJobs(this.currentPage() + 1); }
+  prevPage() { if (this.hasPrevPage() && !this.isLoading()) this.loadJobs(this.currentPage() - 1); }
 
   logout(): void {
     this.authServce.logout();
-    this.favoriteSlugs.set([]); 
+     this.store.dispatch(JobActions.clearFavorites());
   }
 }
