@@ -2,11 +2,12 @@ import { inject, Injectable } from "@angular/core";
 import { UserApi } from "../../api/user.api";
 import bcrypt from "bcryptjs";
 import { User } from "../models/user.model";
+import { AuthService } from "./auth.service";
 
 @Injectable({ providedIn: 'root' })
 export class UserService {
   private readonly userApi = inject(UserApi);
-
+    private readonly authService = inject(AuthService)
   editAccount(id: number, rawData: Partial<User>) {
     // 1. Create a clean object (remove empty values)
     const dataToSend: any = {};
@@ -25,6 +26,22 @@ export class UserService {
       dataToSend.password = bcrypt.hashSync(dataToSend.password, salt);
     }
 
+    
     return this.userApi.editUserData(id, dataToSend);
   }
+
+
+
+  updateStoredUser(updatedFields: any): void {
+  const current = this.authService.getCurrentUser();
+  if (current) {
+    const mergedUser = { ...current, ...updatedFields };
+
+    if (mergedUser.password) {
+      delete mergedUser.password;
+    }
+
+    localStorage.setItem('user', JSON.stringify(mergedUser));
+  }
+}
 }

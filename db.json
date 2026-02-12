@@ -1,13 +1,21 @@
 {
   "users": [
     {
-      "firstName": "mustaphaddddd",
+      "firstName": "mustapha22",
       "lastName": "moutaki",
       "email": "mustapha@gmail.com",
-      "password": "$2b$10$JHyhX/0u.vRseMqxcmsn9ev8BsZjmKLgMJCvX2UvSUX3dfJnqUJtq",
+      "password": "$2b$10$db.1gsIRIHmJt9ugJLGhmeXq83NvEudEd0UgvqVJWOzVxX4FVp6gm",
       "id": 1
     }
   ],
-  "favorites": [],
+  "favorites": [
+    {
+      "userId": 1,
+      "jobSlug": "working-student-graphic-design-berlin-123987",
+      "jobTitle": "Working Student Graphic Design (m/f/d)",
+      "company": "KoRo Handels GmbH",
+      "id": 1
+    }
+  ],
   "condidats": []
 }

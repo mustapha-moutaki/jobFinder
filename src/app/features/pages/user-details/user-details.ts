@@ -6,11 +6,18 @@ import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
 import { User } from '../../../core/models/user.model';
 import { MatButtonModule } from '@angular/material/button';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-user-details',
   standalone: true, // Make sure this is here
-  imports: [ReactiveFormsModule, MatCardModule, MatInputModule,  MatButtonModule],
+  imports: [
+       CommonModule, 
+    ReactiveFormsModule, 
+    MatInputModule, 
+    MatButtonModule, 
+    MatCardModule
+  ],
   templateUrl: './user-details.html',
   styleUrl: './user-details.css',
 })
@@ -23,7 +30,7 @@ export class UserDetails implements OnInit {
     firstName: [''],
     lastName: [''],
     email: ['', [Validators.email]],
-    password: [''] // Leave empty, only fill if user wants to change it
+    password: [''] 
   });
 
   ngOnInit(): void {
@@ -40,24 +47,22 @@ export class UserDetails implements OnInit {
 
  onSubmit(): void {
   const user = this.authService.getCurrentUser();
-  
-  console.log("DEBUG: Full User Object from Auth:", user);
-  
-  if (!user) {
-    console.error("DEBUG: No user found in storage!");
-    return;
-  }
-
-  if (user.id === undefined || user.id === null) {
-    console.error("DEBUG: User exists, but the ID property is missing or undefined!");
-    console.log("DEBUG: Available keys in user object:", Object.keys(user));
-    return;
-  }
+  if (!user || !user.id) return;
 
   const formValue = this.form.getRawValue();
+
   this.userService.editAccount(user.id, formValue).subscribe({
-    next: () => console.log("Update Success!"),
-    error: (err) => console.error("Update Failed:", err)
+    next: (updatedUserFromServer) => {
+      console.log("1. Server Updated:", updatedUserFromServer);
+
+      this.userService.updateStoredUser(updatedUserFromServer);
+
+      this.form.get('password')?.reset();
+
+      alert("Profile updated successfully!");
+      console.log("2. LocalStorage Sync Complete.");
+    },
+    error: (err) => console.error("Update failed", err)
   });
 }
 }
