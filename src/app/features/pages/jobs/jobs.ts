@@ -6,7 +6,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { AuthService } from '../../../core/services/auth.service';
-import { RouterLink } from '@angular/router';
+import { RouterLink, RouterLinkActive } from '@angular/router';
 import { debounceTime, distinctUntilChanged, Subject } from 'rxjs';
 
 // NgRx Imports
@@ -17,7 +17,7 @@ import * as JobSelectors from './state/job.selectors';
 @Component({
   selector: 'app-jobs',
   standalone: true,
-  imports: [CommonModule, MatCardModule, MatButtonModule, MatInputModule, RouterLink],
+  imports: [CommonModule, MatCardModule, MatButtonModule, MatInputModule, RouterLink, RouterLinkActive],
   templateUrl: './jobs.html'
 })
 export class Jobs implements OnInit {
