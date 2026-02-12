@@ -19,12 +19,6 @@ addToCondidats(userId: number, jobSlug: string): Observable<Condidat | null> {
 
 
 
-// service
- addToCondidats(userId:number, jobSlug: string ){
-    return this.jobApi.addToCondidats(userId, jobSlug);
-  }
-
-
 
 
 ```
