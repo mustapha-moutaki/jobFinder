@@ -33,6 +33,8 @@ export class UserDetails implements OnInit {
     password: [''] 
   });
 
+
+
   ngOnInit(): void {
     // Fill the form with current data so we don't send empty fields
     const currentUser = this.authService.getCurrentUser();
@@ -44,6 +46,8 @@ export class UserDetails implements OnInit {
       });
     }
   }
+
+
 
  onSubmit(): void {
   const user = this.authService.getCurrentUser();
@@ -65,4 +69,6 @@ export class UserDetails implements OnInit {
     error: (err) => console.error("Update failed", err)
   });
 }
+
+
 }
