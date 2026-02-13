@@ -1,8 +1,6 @@
 # JobFinder – Angular SPA Application
 
 **Author:** Mustapha Moutaki  
-**Project Context:** Soutenance Croisée 2 – 2025/2026
-
 ---
 
 ## Project Overview
