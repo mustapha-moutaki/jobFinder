@@ -16,7 +16,7 @@ export class AuthApi{
         return this.http.post<void>(`${this.baseUrl}`, data);
     }
     
-
+    // get User by email
      getUserByEmail(email: string): Observable<RegisterRequest[]> {
         return this.http.get<RegisterRequest[]>(`${this.baseUrl}?email=${email}`);
     }
