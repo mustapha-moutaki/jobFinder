@@ -2,7 +2,6 @@
 
 **Author:** Mustapha Moutaki  
 ---
-
 ## Project Overview
 
 JobFinder is a professional Single Page Application (SPA) built with Angular 17+. It provides job seekers with a comprehensive platform to search for international job opportunities via public APIs, manage a list of favorites using centralized state management, and track the progress of their job applications.
