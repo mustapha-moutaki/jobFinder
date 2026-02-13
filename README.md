@@ -90,7 +90,7 @@ src/
 
 | Storage Type | Usage |
 | :--- | :--- |
-| **sessionStorage / localStorage** | Maintaining the authentication token and session state. |
+| **localStorage** | Maintaining the authentication token and session state. |
 | **JSON Server (db.json)** | Persistent storage for Users, Favorites, and Applications. |
 
 ---
