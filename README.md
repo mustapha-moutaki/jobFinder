@@ -32,7 +32,6 @@ The application provides the following core functionalities:
 *   **API Simulation:** JSON Server
 *   **Routing:** Lazy Loading, Route Guards
 *   **Development Tools:** Redux DevTools, HTTP Interceptors
-
 ---
 
 ## Key Features
