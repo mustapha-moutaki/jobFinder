@@ -121,7 +121,6 @@ ng serve
 The application will be available at `http://localhost:4200`.
 
 ---
-
 ## Skills Demonstrated
 
 *   **Advanced Angular:** Utilization of Angular 17 features, Standalone components, and optimized Change Detection.
