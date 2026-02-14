@@ -63,6 +63,7 @@ export class MyCondidats implements OnInit {
         event.previousIndex,
         event.currentIndex
       );
+      
 
       // Update the status on the backend
       this.condidatService.updateCondidatStatus(item.id, newStatus).subscribe({
