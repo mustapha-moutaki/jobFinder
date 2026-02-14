@@ -24,8 +24,8 @@ export class JobService{
 
 
     // add to
-    addToCondidat(userId: number,  jobSlug: string, title: string, company: string, location: string){
-      return this.jobApi.addToCondidat(userId, jobSlug, title, company, location);
+    addToCondidat(userId: number,  jobSlug: string, title: string, company: string, location: string, url:string){
+      return this.jobApi.addToCondidat(userId, jobSlug, title, company, location, url);
     }
 
 

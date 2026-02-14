@@ -152,18 +152,29 @@
           @for (job of filteredJobs(); track job.slug) {
             <mat-card class="group !rounded-[2.5rem] !border-none !bg-white hover:!bg-[#08a88a]/5 shadow-[0_15px_50px_-20px_rgba(0,0,0,0.06)] transition-all duration-700 cursor-pointer overflow-hidden relative border border-white">
               
-              @if (curretUser()) {
-                <button (click)="$event.stopPropagation(); addToFavorite(job)"
-                  class="absolute top-8 right-8 w-12 h-12 flex items-center justify-center rounded-full transition-all duration-300 z-20 group/fav shadow-sm border"
-                  [class.bg-red-50]="isFavorite(job.slug)"
-                  [class.text-red-500]="isFavorite(job.slug)"
-                  [class.border-red-100]="isFavorite(job.slug)"
-                  [class.bg-slate-50]="!isFavorite(job.slug)"
-                  [class.text-slate-300]="!isFavorite(job.slug)"
-                  [class.border-slate-100]="!isFavorite(job.slug)">
-                  <i class="fa-solid fa-heart text-xl group-hover/fav:scale-125 transition-transform"></i>
+            @if (curretUser()) {
+              <div class="absolute top-6 right-6 flex items-center gap-3 z-20">
+                
+                <!-- Follow Candidate Button (User Icon) -->
+                <button (click)="$event.stopPropagation()"  [routerLink]="['/myCondidats']"
+                  class="w-11 h-11 flex items-center justify-center rounded-full bg-white border border-slate-100 text-slate-400 shadow-sm transition-all duration-300 hover:border-teal-100 hover:bg-teal-50 hover:text-[#08a88a] hover:shadow-md active:scale-90 group/cand"
+                  title="Follow Candidate">
+                  <i class="fa-solid fa-user-plus text-lg group-hover/cand:scale-110 transition-transform"></i>
                 </button>
-              }
+
+                <!-- Favorite Button (Heart Icon) -->
+                <button (click)="$event.stopPropagation(); addToFavorite(job)"
+                  class="w-11 h-11 flex items-center justify-center rounded-full bg-white border border-slate-100 shadow-sm transition-all duration-300 hover:shadow-md active:scale-90 group/fav"
+                  [class.bg-red-50]="isFavorite(job.slug)"
+                  [class.border-red-100]="isFavorite(job.slug)"
+                  [class.text-red-500]="isFavorite(job.slug)"
+                  [class.text-slate-400]="!isFavorite(job.slug)">
+                  <i class="fa-solid fa-heart text-lg group-hover/fav:scale-110 transition-transform"></i>
+                </button>
+                
+              </div>
+            }
+  
 
               <div class="p-10">
                 <div class="flex flex-col h-full justify-between items-start gap-6">

@@ -49,7 +49,7 @@ export class JobDetails implements OnInit {
       return ;
     }
 
-    this.jobService.addToCondidat(currentUser.id!, job.slug, job.title, job.company_name, job.location).subscribe({
+    this.jobService.addToCondidat(currentUser.id!, job.slug, job.title, job.company_name, job.location, job.url).subscribe({
       next: ()=>{
         console.log("the condidat saved");
         setTimeout(()=>{

@@ -132,10 +132,6 @@ export class Jobs implements OnInit {
     return this.authServce.getCurrentUser();
   }
 
-
-
-  
-
   toggleVisa() { this.visaFilter.update(v => !v); this.loadJobs(0); }
   toggleRemote() { this.remoteFilter.update(v => !v); this.loadJobs(0); }
   nextPage() { if (this.hasNextPage() && !this.isLoading()) this.loadJobs(this.currentPage() + 1); }

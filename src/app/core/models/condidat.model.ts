@@ -4,5 +4,11 @@ export interface Condidat {
   title: string;
   company: string;
   location: string;
+
+  url: string;
+  apiSource: string,
+  notes: string,
+  dateAdded: string;
+
   status: 'pending' | 'accepted' | 'rejected';
 }

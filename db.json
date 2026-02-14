@@ -11,27 +11,31 @@
   "favorites": [
     {
       "userId": 1,
-      "jobSlug": "working-student-graphic-design-berlin-123987",
-      "jobTitle": "Working Student Graphic Design (m/f/d)",
-      "company": "KoRo Handels GmbH",
+      "jobSlug": "e-commerce-manager-shopify-cro-remote-vollzeit-aachen-169293",
+      "jobTitle": "E-Commerce Manager Shopify & CRO (m/w/d) - Remote (Vollzeit)",
+      "company": "Tretmann",
       "id": 1
     },
     {
       "userId": 1,
-      "jobSlug": "regionalleiter-vertrieb-sicherheitstechnik-berlin-88026",
-      "jobTitle": "Regionalleiter Vertrieb (m/w/d) Sicherheitstechnik Berlin",
-      "company": "Stadtritter GmbH",
-      "id": 3
+      "jobSlug": "kaufmannische-fuhrungskraft-business-development-projektleitung-in-osnabruck-153271",
+      "jobTitle": "Kaufmännische Führungskraft (m/w/d) Business Development & Projektleitung in Osnabrück",
+      "company": "Domainprofi GmbH",
+      "id": 2
     }
   ],
   "condidats": [
     {
       "userId": 1,
-      "jobSlug": "e-commerce-manager-shopify-cro-remote-vollzeit-aachen-169293",
-      "title": "E-Commerce Manager Shopify & CRO (m/w/d) - Remote (Vollzeit)",
-      "company": "Tretmann",
-      "location": "unknown",
+      "jobSlug": "content-assistant-streaming-social-darmstadt-187687",
+      "title": "Content Assistant (Streaming & Social)",
+      "company": "Vybe Brothers Entertainment GmbH",
+      "url": "https://www.arbeitnow.com/jobs/companies/vybe-brothers-entertainment-gmbh/content-assistant-streaming-social-darmstadt-187687",
+      "location": "Darmstadt",
       "status": "pending",
+      "apiSource": "arbeitnow",
+      "notes": "",
+      "dateAdded": "2026-02-14T16:53:09.188Z",
       "id": 1
     }
   ]
