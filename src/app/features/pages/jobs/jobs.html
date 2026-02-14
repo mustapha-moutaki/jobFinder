@@ -155,11 +155,12 @@
             @if (curretUser()) {
               <div class="absolute top-6 right-6 flex items-center gap-3 z-20">
                 
-                <!-- Follow Candidate Button (User Icon) -->
-                <button (click)="$event.stopPropagation()"  [routerLink]="['/myCondidats']"
-                  class="w-11 h-11 flex items-center justify-center rounded-full bg-white border border-slate-100 text-slate-400 shadow-sm transition-all duration-300 hover:border-teal-100 hover:bg-teal-50 hover:text-[#08a88a] hover:shadow-md active:scale-90 group/cand"
-                  title="Follow Candidate">
-                  <i class="fa-solid fa-user-plus text-lg group-hover/cand:scale-110 transition-transform"></i>
+               <button (click)="$event.stopPropagation()" 
+                  [routerLink]="['/myCondidats']"
+                  class="w-11 h-11 flex items-center justify-center rounded-full bg-white border border-slate-100 text-slate-400 shadow-sm transition-all duration-300 hover:border-teal-100 hover:bg-teal-50 hover:text-[#08a88a] hover:shadow-md active:scale-90 group/status"
+                  title="View Application Status">
+                  <!-- Icon changed to Clipboard-List for a "Tracking/Status" feel -->
+                  <i class="fa-solid fa-clipboard-list text-lg group-hover/status:scale-110 transition-transform"></i>
                 </button>
 
                 <!-- Favorite Button (Heart Icon) -->
