@@ -63,4 +63,9 @@ export class AuthService {
         // If user exists, return parsed object, otherwise return null
         return user ? JSON.parse(user) : null;
     }
+
+    get isLoggedIn(): boolean {
+  return !!this.getCurrentUser();
+}
+
 }

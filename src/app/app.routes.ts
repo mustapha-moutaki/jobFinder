@@ -5,6 +5,7 @@ import { Login } from './features/pages/auth/login/login';
 import { Jobs } from './features/pages/jobs/jobs';
 import { JobDetails } from './features/pages/job-details/job-details';
 import { UserDetails } from './features/pages/user-details/user-details';
+import { authGuard } from './core/guards/role.guard';
 
 export const routes: Routes = [
      {
@@ -17,7 +18,8 @@ export const routes: Routes = [
    },
    {
         path: 'profile',
-        component: UserDetails
+        component: UserDetails,
+        canActivate:[authGuard]
    },
     {
         path: 'auth',
