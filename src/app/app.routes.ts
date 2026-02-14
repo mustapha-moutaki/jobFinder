@@ -6,6 +6,7 @@ import { Jobs } from './features/pages/jobs/jobs';
 import { JobDetails } from './features/pages/job-details/job-details';
 import { UserDetails } from './features/pages/user-details/user-details';
 import { authGuard } from './core/guards/role.guard';
+import { MyFavoritesPage } from './features/pages/my-favorites-page/my-favorites-page';
 
 export const routes: Routes = [
      {
@@ -14,12 +15,17 @@ export const routes: Routes = [
     },
     {
         path: 'jobs/:slug', 
-        component: JobDetails
+        component: JobDetails,
+        canActivate:[authGuard]
    },
    {
         path: 'profile',
         component: UserDetails,
         canActivate:[authGuard]
+   },
+   {
+    path:'myfavorites',
+    component: MyFavoritesPage
    },
     {
         path: 'auth',

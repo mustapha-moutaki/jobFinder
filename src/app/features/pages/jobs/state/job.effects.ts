@@ -1,20 +1,20 @@
 import { Injectable, inject } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { JobService } from '../../../../core/services/jobs.service';
+import { favoriteService } from '../../../../core/services/favorite.service';
 import * as JobActions from './job.actions';
 import { catchError, map, mergeMap, of } from 'rxjs';
 
 @Injectable()
 export class JobEffects {
   private actions$ = inject(Actions);
-  private jobService = inject(JobService);
+  private favoriteService = inject(favoriteService);
 
   // Effect to load favorites from API
   loadFavorites$ = createEffect(() =>
     this.actions$.pipe(
       ofType(JobActions.loadFavorites),
       mergeMap(({ userId }) =>
-        this.jobService.getFavoritesByUserId(userId).pipe(
+        this.favoriteService.getFavoritesByUserId(userId).pipe(
           map((favs: any[]) => {
             const slugs = favs.map(f => f.jobSlug);
             return JobActions.loadFavoritesSuccess({ slugs });
@@ -30,7 +30,7 @@ export class JobEffects {
     this.actions$.pipe(
       ofType(JobActions.addToFavorite),
       mergeMap((action) =>
-        this.jobService.addToFavorite({
+        this.favoriteService.addToFavorite({
           userId: action.userId,
           jobSlug: action.jobSlug,
           jobTitle: action.jobTitle,

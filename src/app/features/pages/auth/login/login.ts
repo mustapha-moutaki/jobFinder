@@ -39,7 +39,7 @@ submit(): void {
         next: (userData: UserResponse) => {
             this.loading = false;
             console.log("Logged in user:", userData); 
-            this.router.navigate(['/dashboard']); 
+            this.router.navigate(['/']); 
         },
         error: (err) => {
             this.loading = false;

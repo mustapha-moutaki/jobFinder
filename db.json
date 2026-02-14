@@ -15,7 +15,24 @@
       "jobTitle": "Working Student Graphic Design (m/f/d)",
       "company": "KoRo Handels GmbH",
       "id": 1
+    },
+    {
+      "userId": 1,
+      "jobSlug": "regionalleiter-vertrieb-sicherheitstechnik-berlin-88026",
+      "jobTitle": "Regionalleiter Vertrieb (m/w/d) Sicherheitstechnik Berlin",
+      "company": "Stadtritter GmbH",
+      "id": 3
     }
   ],
-  "condidats": []
+  "condidats": [
+    {
+      "userId": 1,
+      "jobSlug": "e-commerce-manager-shopify-cro-remote-vollzeit-aachen-169293",
+      "title": "E-Commerce Manager Shopify & CRO (m/w/d) - Remote (Vollzeit)",
+      "company": "Tretmann",
+      "location": "unknown",
+      "status": "pending",
+      "id": 1
+    }
+  ]
 }

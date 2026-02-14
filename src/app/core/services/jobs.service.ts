@@ -12,15 +12,6 @@ export class JobService{
          return this.jobApi.getAllJobs(page, visa, remote); 
     }
 
-    addToFavorite(data:any):Observable<void> {
-        return this.jobApi.addToFavorite(data); 
-    }
-
-    
-    // return  favorite job by userId
-    getFavoritesByUserId(id: number): Observable<any[]> {
-        return this.jobApi.getFavoritesByUserId(id);
-    }
 
      
     getJobBySlug(slug: string) {
@@ -38,5 +29,6 @@ export class JobService{
     }
 
 
+    
 }
 
