@@ -38,30 +38,7 @@ export class JobApi {
     //     return this.http.get<any[]>(`${this.localUrl}/favorites?userId=${userId}`);
     // }
 
-    // add to condidat
-    addToCondidat(userId: number, jobSlug: string, title: string, company:string, location: string, url: string): Observable<Condidat|null>{
-        const condidat:Condidat={
-            userId,
-            jobSlug,
-            title,
-            company,
-            url: url || "unknown",
-            location: location || 'unknown', 
-            status:'pending',
-            apiSource: 'arbeitnow',
-            notes: '',
-            dateAdded: new Date().toISOString() 
-        }
-
-        return this.http.post<Condidat>(`${this.localUrl}/condidats`, condidat).pipe(
-            catchError(err=>{
-                console.log("Failed to save in db", err);
-                return of (null);
-            })
-        )
-    }
-
-
+   
 
     
 

@@ -5,6 +5,7 @@ import { JobService } from '../../../core/services/jobs.service';
 import { Job } from '../../../core/models/job.model';
 import { Condidat } from '../../../core/models/condidat.model';
 import { AuthService } from '../../../core/services/auth.service';
+import { CondidatService } from '../../../core/services/condidat.service';
 
 @Component({
   selector: 'app-job-details',
@@ -20,6 +21,7 @@ import { AuthService } from '../../../core/services/auth.service';
 export class JobDetails implements OnInit {
   private route = inject(ActivatedRoute);
   private jobService = inject(JobService);
+  private condidatService = inject(CondidatService);
   private authService = inject(AuthService);
 
   job = signal<Job | null>(null);
@@ -49,14 +51,14 @@ export class JobDetails implements OnInit {
       return ;
     }
 
-    this.jobService.addToCondidat(currentUser.id!, job.slug, job.title, job.company_name, job.location, job.url).subscribe({
+    this.condidatService.addToCondidat(currentUser.id!, job.slug, job.title, job.company_name, job.location, job.url).subscribe({
       next: ()=>{
         console.log("the condidat saved");
         setTimeout(()=>{
           console.log("redirecting ...");
          window.open(job.url, '_blank');
         })
-      }, error: (err)=>[
+      }, error: (err:any)=>[
         console.log("failed to save the condidat", err)
       ]
     })
