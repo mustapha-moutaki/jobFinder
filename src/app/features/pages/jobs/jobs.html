@@ -1,4 +1,5 @@
 <div class="min-h-screen bg-slate-50 flex flex-col font-sans selection:bg-[#08a88a]/20">
+  
   <!-- 1. HERO & SEARCH SECTION -->
   <div class="bg-[#08a88a] bg-gradient-to-br from-[#068d74] via-[#08a88a] to-[#20c997] pb-32 pt-6 px-6 md:px-12 w-full relative">
     
@@ -9,31 +10,19 @@
       </div>
 
       <div class="flex items-center gap-4">
-        <!-- Modern Angular Control Flow: @if -->
         @if (curretUser()) {
           <div class="flex items-center gap-3">
-            <!-- Profile Pill -->
             <div class="flex items-center gap-3 bg-white/10 backdrop-blur-md px-4 py-2 rounded-full border border-white/20 text-white shadow-sm">
               <div class="text-right hidden sm:block">
                 <p class="text-[10px] font-black uppercase opacity-60 leading-none">Welcome back</p>
                 <p class="text-sm font-bold">{{ curretUser()?.firstName }}</p>
               </div>
-              <a 
-              [routerLink]="['/profile']" 
-              routerLinkActive="text-white bg-teal-800/30"
-              aria-label="View Profile"
-              class="inline-flex items-center justify-center p-2 rounded-full text-teal-200 hover:text-white hover:bg-teal-700/50 transition-all duration-200 outline-none focus:ring-2 focus:ring-teal-400"
-            >
-              <i class="fa-solid fa-circle-user text-2xl"></i>
-            </a>
-            <button><span [routerLink]="['myfavorites']">myfavorites</span></button>
-            
+              <a [routerLink]="['/profile']" class="inline-flex items-center justify-center p-2 rounded-full text-teal-200 hover:text-white transition-all outline-none">
+                <i class="fa-solid fa-circle-user text-2xl"></i>
+              </a>
+              <button><span [routerLink]="['myfavorites']" class="text-sm font-bold hover:underline">myfavorites</span></button>
             </div>
-
-            <!-- Logout Button -->
-            <button 
-              (click)="logout()" 
-              class="flex items-center gap-2 bg-rose-500/10 hover:bg-rose-500/20 border border-rose-500/30 text-rose-200 px-4 py-2 rounded-full transition-all active:scale-95 group">
+            <button (click)="logout()" class="flex items-center gap-2 bg-rose-500/10 hover:bg-rose-500/20 border border-rose-500/30 text-rose-200 px-4 py-2 rounded-full transition-all active:scale-95 group">
               <span class="text-sm font-bold">Logout</span>
               <i class="fa-solid fa-right-from-bracket text-sm group-hover:translate-x-1 transition-transform"></i>
             </button>
@@ -57,22 +46,13 @@
       <div class="bg-white p-3 rounded-2xl shadow-2xl flex flex-col md:flex-row gap-2 border border-white/20">
         <div class="flex-1 flex items-center px-6 border-r border-gray-100">
           <span class="text-xl mr-3 text-[#08a88a]"><i class="fa-solid fa-magnifying-glass"></i></span>
-          <input 
-            type="text" 
-            placeholder="Job title or company" 
-            class="w-full py-5 outline-none text-gray-700 font-medium text-lg placeholder:text-gray-400"
-            (input)="onSearch($event)">
+          <input type="text" placeholder="Job title or company" class="w-full py-5 outline-none text-gray-700 font-medium text-lg" (input)="onSearch($event)">
         </div>
         <div class="flex-1 flex items-center px-6">
           <span class="text-xl mr-3 text-[#08a88a]"><i class="fa-solid fa-location-dot"></i></span>
-          <input 
-            type="text" 
-            placeholder="City or Remote" 
-            class="w-full py-5 outline-none text-gray-700 font-medium text-lg placeholder:text-gray-400">
+          <input type="text" placeholder="Search by City" class="w-full py-5 outline-none text-gray-700 font-medium text-lg" (input)="onCitySearch($event)">
         </div>
-        <button 
-          (click)="loadJobs(0)" 
-          class="bg-[#08a88a] hover:bg-[#068d74] text-white px-12 py-5 rounded-xl font-bold text-lg transition-all transform hover:scale-[1.01] active:scale-95 shadow-lg shadow-[#08a88a]/30">
+        <button (click)="loadJobs(0)" class="bg-[#08a88a] hover:bg-[#068d74] text-white px-12 py-5 rounded-xl font-bold text-lg transition-all transform hover:scale-[1.01] active:scale-95 shadow-lg shadow-[#08a88a]/30">
           Search Jobs
         </button>
       </div>
@@ -82,43 +62,26 @@
   <!-- 2. MAIN CONTENT -->
   <div class="flex-1 flex w-full px-6 md:px-12 pt-24 pb-20 gap-10 mt-10">
 
-    <!-- LEFT SIDEBAR (Sticky Filters) -->
+    <!-- LEFT SIDEBAR -->
     <aside class="hidden lg:block w-80 shrink-0">
       <div class="sticky top-10 space-y-6">
         <div class="bg-white/70 backdrop-blur-md p-8 rounded-3xl border border-white shadow-sm">
           <h3 class="font-black text-gray-900 text-xs uppercase tracking-widest mb-8">Filter Results</h3>
-          
           <div class="space-y-8">
-            <div>
-              <p class="text-sm font-bold text-gray-500 mb-4">Job Preferences</p>
-              <div class="flex flex-col gap-4">
-                
-                <!-- Visa Sponsorship Toggle -->
-                <label class="flex items-center group cursor-pointer" (click)="toggleVisa()">
-                  <div class="w-6 h-6 border-2 border-teal-100 rounded-lg group-hover:border-[#08a88a] transition-colors mr-3 flex items-center justify-center"
-                       [class.border-[#08a88a]]="visaFilter()" 
-                       [class.bg-[#08a88a]/5]="visaFilter()">
-                    <div class="w-2.5 h-2.5 bg-[#08a88a] rounded-sm transition-opacity"
-                         [class.opacity-100]="visaFilter()" 
-                         [class.opacity-0]="!visaFilter()"></div>
-                  </div>
-                  <span class="text-gray-700 font-semibold text-base group-hover:text-[#08a88a]"
-                        [class.text-[#08a88a]]="visaFilter()">Visa Sponsorship</span>
-                </label>
+            <div class="flex flex-col gap-4">
+              <label class="flex items-center group cursor-pointer" (click)="toggleVisa()">
+                <div class="w-6 h-6 border-2 border-teal-100 rounded-lg group-hover:border-[#08a88a] transition-colors mr-3 flex items-center justify-center" [class.border-[#08a88a]]="visaFilter()" [class.bg-[#08a88a]/5]="visaFilter()">
+                  <div class="w-2.5 h-2.5 bg-[#08a88a] rounded-sm" [class.opacity-100]="visaFilter()" [class.opacity-0]="!visaFilter()"></div>
+                </div>
+                <span class="text-gray-700 font-semibold text-base group-hover:text-[#08a88a]" [class.text-[#08a88a]]="visaFilter()">Visa Sponsorship</span>
+              </label>
 
-                <!-- Remote Toggle -->
-                <label class="flex items-center group cursor-pointer" (click)="toggleRemote()">
-                  <div class="w-6 h-6 border-2 border-teal-100 rounded-lg group-hover:border-[#08a88a] transition-colors mr-3 flex items-center justify-center"
-                       [class.border-[#08a88a]]="remoteFilter()" 
-                       [class.bg-[#08a88a]/5]="remoteFilter()">
-                    <div class="w-2.5 h-2.5 bg-[#08a88a] rounded-sm transition-opacity"
-                         [class.opacity-100]="remoteFilter()" 
-                         [class.opacity-0]="!remoteFilter()"></div>
-                  </div>
-                  <span class="text-gray-700 font-semibold text-base group-hover:text-[#08a88a]"
-                        [class.text-[#08a88a]]="remoteFilter()">Remote Work</span>
-                </label>
-              </div>
+              <label class="flex items-center group cursor-pointer" (click)="toggleRemote()">
+                <div class="w-6 h-6 border-2 border-teal-100 rounded-lg group-hover:border-[#08a88a] transition-colors mr-3 flex items-center justify-center" [class.border-[#08a88a]]="remoteFilter()" [class.bg-[#08a88a]/5]="remoteFilter()">
+                  <div class="w-2.5 h-2.5 bg-[#08a88a] rounded-sm" [class.opacity-100]="remoteFilter()" [class.opacity-0]="!remoteFilter()"></div>
+                </div>
+                <span class="text-gray-700 font-semibold text-base group-hover:text-[#08a88a]" [class.text-[#08a88a]]="remoteFilter()">Remote Work</span>
+              </label>
             </div>
           </div>
         </div>
@@ -139,87 +102,52 @@
         <div class="flex justify-between items-center mb-10 px-4">
           <h2 class="text-gray-900 font-black text-2xl tracking-tight">Latest Opportunities</h2>
           <div class="flex items-center gap-2">
-            <span class="relative flex h-3 w-3">
-              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-teal-400 opacity-75"></span>
-              <span class="relative inline-flex rounded-full h-3 w-3 bg-[#08a88a]"></span>
-            </span>
+            <span class="relative flex h-3 w-3"><span class="animate-ping absolute h-full w-full rounded-full bg-teal-400 opacity-75"></span><span class="relative inline-flex rounded-full h-3 w-3 bg-[#08a88a]"></span></span>
             <span class="text-sm font-black text-[#08a88a] uppercase tracking-tighter">Live Feed</span>
           </div>
         </div>
 
         <div class="grid grid-cols-1 xl:grid-cols-2 gap-8">
-          <!-- Modern Angular Control Flow: @for with track -->
-          @for (job of filteredJobs(); track job.slug) {
+          @for (job of paginatedJobs(); track job.slug) {
+            <!-- RESTORED: !rounded-[2.5rem] and p-10 styling -->
             <mat-card class="group !rounded-[2.5rem] !border-none !bg-white hover:!bg-[#08a88a]/5 shadow-[0_15px_50px_-20px_rgba(0,0,0,0.06)] transition-all duration-700 cursor-pointer overflow-hidden relative border border-white">
               
-            @if (curretUser()) {
-              <div class="absolute top-6 right-6 flex items-center gap-3 z-20">
-                
-               <button (click)="$event.stopPropagation()" 
-                  [routerLink]="['mycondidats']"
-                  class="w-11 h-11 flex items-center justify-center rounded-full bg-white border border-slate-100 text-slate-400 shadow-sm transition-all duration-300 hover:border-teal-100 hover:bg-teal-50 hover:text-[#08a88a] hover:shadow-md active:scale-90 group/status"
-                  title="View Application Status">
-                  <!-- Icon changed to Clipboard-List for a "Tracking/Status" feel -->
-                  <i class="fa-solid fa-clipboard-list text-lg group-hover/status:scale-110 transition-transform"></i>
-                </button>
-
-
-                <!-- Favorite Button (Heart Icon) -->
-                <button (click)="$event.stopPropagation(); addToFavorite(job)"
-                  class="w-11 h-11 flex items-center justify-center rounded-full bg-white border border-slate-100 shadow-sm transition-all duration-300 hover:shadow-md active:scale-90 group/fav"
-                  [class.bg-red-50]="isFavorite(job.slug)"
-                  [class.border-red-100]="isFavorite(job.slug)"
-                  [class.text-red-500]="isFavorite(job.slug)"
-                  [class.text-slate-400]="!isFavorite(job.slug)">
-                  <i class="fa-solid fa-heart text-lg group-hover/fav:scale-110 transition-transform"></i>
-                </button>
-                
-              </div>
-            }
-  
+              @if (curretUser()) {
+                <div class="absolute top-6 right-6 flex items-center gap-3 z-20">
+                  <button (click)="$event.stopPropagation()" [routerLink]="['mycondidats']" class="w-11 h-11 flex items-center justify-center rounded-full bg-white border border-slate-100 text-slate-400 shadow-sm transition-all hover:text-[#08a88a]"><i class="fa-solid fa-clipboard-list text-lg"></i></button>
+                  <button (click)="$event.stopPropagation(); addToFavorite(job)" class="w-11 h-11 flex items-center justify-center rounded-full bg-white border border-slate-100 shadow-sm transition-all" [class.text-red-500]="isFavorite(job.slug)" [class.text-slate-400]="!isFavorite(job.slug)">
+                    <i class="fa-solid fa-heart text-lg"></i>
+                  </button>
+                </div>
+              }
 
               <div class="p-10">
                 <div class="flex flex-col h-full justify-between items-start gap-6">
                   <div class="w-full">
-                    <span class="text-[#08a88a] text-sm font-black uppercase tracking-[0.2em] mb-3 block">
-                      {{ job.company_name }}
-                    </span>
-                   <h2 
-                      [routerLink]="['/jobs', job.slug]" 
-                      class="text-2xl md:text-3xl font-black text-gray-900 group-hover:text-[#08a88a] transition-colors leading-[1.1] mb-5 pr-10 cursor-pointer">
-                      {{ job.title }}
-                    </h2>
+                    <span class="text-[#08a88a] text-sm font-black uppercase tracking-[0.2em] mb-3 block">{{ job.company_name }}</span>
+                    <!-- RESTORED: text-2xl md:text-3xl -->
+                    <h2 [routerLink]="['/jobs', job.slug]" class="text-2xl md:text-3xl font-black text-gray-900 group-hover:text-[#08a88a] transition-colors leading-[1.1] mb-5 pr-10 cursor-pointer">{{ job.title }}</h2>
                     <div class="flex items-center text-gray-600 text-sm font-bold bg-slate-100 px-4 py-2 rounded-2xl w-fit mb-6">
                       <i class="fa-solid fa-location-dot mr-2 text-[#08a88a]"></i> {{ job.location }}
                     </div>
-                    <!-- Safe innerHTML binding -->
                     <div class="text-gray-500 text-base line-clamp-3 opacity-80" [innerHTML]="job.description"></div>
                   </div>
 
                   <div class="w-full flex items-center justify-between border-t border-gray-50 pt-8">
                     <div class="flex gap-2">
                       @for (tag of job.tags.slice(0, 2); track tag) {
-                        <span class="text-[10px] font-black text-teal-600 bg-teal-50 px-3 py-1 rounded-lg uppercase">
-                          {{ tag }}
-                        </span>
+                        <span class="text-[10px] font-black text-teal-600 bg-teal-50 px-3 py-1 rounded-lg uppercase">{{ tag }}</span>
                       }
                     </div>
-                    <!-- Correct RouterLink usage with Slug -->
-                  <button 
-            [routerLink]="['/jobs', job.slug]"
-            class="bg-gray-900 text-white text-xs font-black px-8 py-4 rounded-2xl hover:bg-[#08a88a] transition-all transform group-hover:translate-x-1 shadow-xl">
-            Apply Now <i class="fa-solid fa-arrow-right ml-2"></i>
-          </button>
+                    <button [routerLink]="['/jobs', job.slug]" class="bg-gray-900 text-white text-xs font-black px-8 py-4 rounded-2xl hover:bg-[#08a88a] transition-all transform group-hover:translate-x-1 shadow-xl">Apply Now <i class="fa-solid fa-arrow-right ml-2"></i></button>
                   </div>
                 </div>
               </div>
             </mat-card>
           } @empty {
-            <!-- Empty state when search/filter returns nothing -->
             <div class="col-span-full py-20 text-center bg-white rounded-[2.5rem] shadow-sm">
               <i class="fa-solid fa-magnifying-glass text-4xl text-gray-200 mb-4"></i>
-              <p class="text-gray-500 font-bold">No jobs found matching "{{ searchQuery() }}"</p>
-              <p class="text-gray-400 text-sm mt-1">Try a different keyword or clear your filters.</p>
+              <p class="text-gray-500 font-bold">No jobs found in "{{ cityQuery() || 'this region' }}" matching your search.</p>
             </div>
           }
         </div>
@@ -227,19 +155,13 @@
         <!-- PAGINATION SECTION -->
         <div class="mt-16 flex flex-col items-center gap-4">
           <p class="text-sm text-gray-500 font-semibold">
-            Page <span class="text-[#08a88a] font-black">{{ currentPage() + 1 }}</span>
+            Page <span class="text-[#08a88a] font-black">{{ localPage() + 1 }}</span> of <span class="font-black">{{ totalLocalPages() }}</span>
           </p>
           <div class="flex items-center gap-4">
-            <button 
-              (click)="prevPage()" 
-              [disabled]="!hasPrevPage() || isLoading()" 
-              class="px-6 py-3 rounded-2xl bg-white border-2 border-gray-200 font-bold hover:border-[#08a88a] hover:text-[#08a88a] disabled:opacity-30 disabled:cursor-not-allowed transition-all">
+            <button (click)="prevLocalPage()" [disabled]="(localPage() === 0 && !hasPrevPage()) || isLoading()" class="px-6 py-3 rounded-2xl bg-white border-2 border-gray-200 font-bold hover:border-[#08a88a] hover:text-[#08a88a] disabled:opacity-30 transition-all">
               <i class="fa-solid fa-chevron-left mr-2"></i> Previous
             </button>
-            <button 
-              (click)="nextPage()" 
-              [disabled]="!hasNextPage() || isLoading()" 
-              class="px-6 py-3 rounded-2xl bg-white border-2 border-gray-200 font-bold hover:border-[#08a88a] hover:text-[#08a88a] disabled:opacity-30 disabled:cursor-not-allowed transition-all">
+            <button (click)="nextLocalPage()" [disabled]="(localPage() === totalLocalPages() - 1 && !hasNextPage()) || isLoading()" class="px-6 py-3 rounded-2xl bg-white border-2 border-gray-200 font-bold hover:border-[#08a88a] hover:text-[#08a88a] disabled:opacity-30 transition-all">
               Next <i class="fa-solid fa-chevron-right ml-2"></i>
             </button>
           </div>
