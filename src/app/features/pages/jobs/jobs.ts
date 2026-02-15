@@ -132,4 +132,3 @@ export class Jobs implements OnInit {
     }
   }
 }
-// i have to read this to remember it
