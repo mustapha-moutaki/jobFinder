@@ -93,6 +93,7 @@ export class Jobs implements OnInit {
     });
   }
 
+  
   onSearch(event: Event) {
     const val = (event.target as HTMLInputElement).value;
     this.searchSubject.next(val);
@@ -131,3 +132,4 @@ export class Jobs implements OnInit {
     }
   }
 }
+// i have to read this to remember it
