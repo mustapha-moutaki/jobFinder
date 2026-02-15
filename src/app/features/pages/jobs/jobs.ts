@@ -92,6 +92,7 @@ export class Jobs implements OnInit {
     });
   }
 
+  
   onSearch(event: Event) {
     const val = (event.target as HTMLInputElement).value;
     this.searchSubject.next(val);
