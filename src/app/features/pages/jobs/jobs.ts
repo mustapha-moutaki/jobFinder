@@ -30,7 +30,7 @@ export class Jobs implements OnInit {
 
   // --- 2. Filter Signals ---
   searchQuery = signal(''); // Title/Company
-  cityQuery = signal('');   // Location/City
+  cityQuery = signal('');   // Location/C ity
   visaFilter = signal(false);
   remoteFilter = signal(false);
 
