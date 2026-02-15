@@ -26,11 +26,13 @@ export const routes: Routes = [
    },
    {
         path:'myfavorites',
-        component: MyFavoritesPage
+        component: MyFavoritesPage,
+        canActivate:[authGuard]
    },
    {
         path: 'mycondidats',
-        component: MyCondidats
+        component: MyCondidats,
+        canActivate:[authGuard]
    },
     {
         path: 'auth',
