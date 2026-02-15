@@ -44,6 +44,7 @@ export class Jobs implements OnInit {
   private searchSubject = new Subject<string>();
   favoriteSlugs = this.store.selectSignal(JobSelectors.selectFavoriteSlugs);
 
+  
   // --- 4. Search & Filter Logic (Organized) ---
   filteredJobs = computed(() => {
     const query = this.searchQuery().toLowerCase().trim();
