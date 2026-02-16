@@ -27,18 +27,7 @@ export class JobApi {
         return this.http.get<PageResponse<Job>>(this.publicUrl, { params });
     }
 
-    // // add to favorite
-    // addToFavorite(data: {userId: number, jobSlug: string}): Observable<void> {
-    //     return this.http.post<void>(`${this.localUrl}/favorites`, data);
-    // }
 
-
-    // // get favorite by user id
-    //  getFavoritesByUserId(userId: number): Observable<any[]> {
-    //     return this.http.get<any[]>(`${this.localUrl}/favorites?userId=${userId}`);
-    // }
-
-   
 
     
 
