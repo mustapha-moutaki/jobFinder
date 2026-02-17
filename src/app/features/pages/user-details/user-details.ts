@@ -71,9 +71,6 @@ export class UserDetails implements OnInit {
 }
 
 
-
-
-
 deleteMyAccount(){
  
    const userId = Number(this.authService.getCurrentUser()?.id)
