@@ -7,7 +7,7 @@ import { MatInputModule } from '@angular/material/input';
 import { User } from '../../../core/models/user.model';
 import { MatButtonModule } from '@angular/material/button';
 import { CommonModule } from '@angular/common';
-
+import { Navigation, Router } from '@angular/router';
 @Component({
   selector: 'app-user-details',
   standalone: true, // Make sure this is here
@@ -34,7 +34,7 @@ export class UserDetails implements OnInit {
   });
 
 
-
+   private readonly router = inject(Router)
   ngOnInit(): void {
     // Fill the form with current data so we don't send empty fields
     const currentUser = this.authService.getCurrentUser();
@@ -71,4 +71,27 @@ export class UserDetails implements OnInit {
 }
 
 
+
+
+
+deleteMyAccount(){
+ 
+   const userId = Number(this.authService.getCurrentUser()?.id)
+    if(!userId) return ;
+
+  this.userService.deleteAccount(userId).subscribe({
+    next: ()=>{
+      console.log("account deleted successfully")
+     console.log("Good bye, we gonna miss u");
+     localStorage.removeItem('user');
+      setTimeout(()=>{
+      this,this.router.navigate(['/'])
+      }, 2000)
+     
+    },
+    error: (err)=>{
+      console.log("Failed to delete account", err)
+    }
+  })
+}
 }

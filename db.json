@@ -1,42 +1,5 @@
 {
-  "users": [
-    {
-      "firstName": "mustapha22",
-      "lastName": "moutaki",
-      "email": "mustapha@gmail.com",
-      "password": "$2b$10$db.1gsIRIHmJt9ugJLGhmeXq83NvEudEd0UgvqVJWOzVxX4FVp6gm",
-      "id": 1
-    }
-  ],
-  "favorites": [
-    {
-      "userId": 1,
-      "jobSlug": "e-commerce-manager-shopify-cro-remote-vollzeit-aachen-169293",
-      "jobTitle": "E-Commerce Manager Shopify & CRO (m/w/d) - Remote (Vollzeit)",
-      "company": "Tretmann",
-      "id": 1
-    },
-    {
-      "userId": 1,
-      "jobSlug": "kaufmannische-fuhrungskraft-business-development-projektleitung-in-osnabruck-153271",
-      "jobTitle": "Kaufmännische Führungskraft (m/w/d) Business Development & Projektleitung in Osnabrück",
-      "company": "Domainprofi GmbH",
-      "id": 2
-    }
-  ],
-  "condidats": [
-    {
-      "userId": 1,
-      "jobSlug": "content-assistant-streaming-social-darmstadt-187687",
-      "title": "Content Assistant (Streaming & Social)",
-      "company": "Vybe Brothers Entertainment GmbH",
-      "url": "https://www.arbeitnow.com/jobs/companies/vybe-brothers-entertainment-gmbh/content-assistant-streaming-social-darmstadt-187687",
-      "location": "Darmstadt",
-      "status": "pending",
-      "apiSource": "arbeitnow",
-      "notes": "",
-      "dateAdded": "2026-02-14T16:53:09.188Z",
-      "id": 1
-    }
-  ]
+  "users": [],
+  "favorites": [],
+  "condidats": []
 }

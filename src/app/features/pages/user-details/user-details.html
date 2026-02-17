@@ -4,10 +4,18 @@
   <div class="w-full max-w-md bg-white rounded-[2.5rem] p-10 shadow-2xl shadow-black/10">
     
     <!-- Header -->
-    <div class="mb-10 text-center">
-      <h1 class="text-2xl font-bold text-gray-900 tracking-tight">Account Settings</h1>
-      <p class="text-sm text-gray-400 mt-1">Manage your profile details</p>
-    </div>
+   <div class="mb-10 text-center max-w-md mx-auto p-6 bg-white rounded-xl shadow-md">
+  <h1 class="text-3xl font-semibold text-gray-900 tracking-tight mb-4">Account Settings</h1>
+  
+  <p class="text-gray-500 text-sm mb-6">Manage your profile details</p>
+  
+  <button 
+    (click)="deleteMyAccount()"
+    class="px-6 py-2 bg-red-500 hover:bg-red-600 text-white font-medium rounded-md transition-colors duration-200"
+  >
+    Delete My Account
+  </button>
+</div>
 
     <form [formGroup]="form" (ngSubmit)="onSubmit()" class="space-y-6">
       

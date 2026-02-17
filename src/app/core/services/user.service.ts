@@ -3,6 +3,7 @@ import { UserApi } from "../../api/user.api";
 import bcrypt from "bcryptjs";
 import { User } from "../models/user.model";
 import { AuthService } from "./auth.service";
+import { catchError, Observable, of } from "rxjs";
 
 @Injectable({ providedIn: 'root' })
 export class UserService {
@@ -43,5 +44,15 @@ export class UserService {
 
     localStorage.setItem('user', JSON.stringify(mergedUser));
   }
+}
+
+
+deleteAccount(id: number){
+  return this.userApi.deleteUserAccount(id).pipe(
+    catchError((err)=>{
+      console.log("Failed to delete user account", err);
+    return of (null)
+    })
+  )
 }
 }

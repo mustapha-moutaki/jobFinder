@@ -17,4 +17,7 @@ export class UserApi{
         return this.http.patch(`${this.localApi}/${id}`, data);
         }
 
+        deleteUserAccount(id: number): Observable<void| null>{
+            return this.http.delete<void>(`${this.localApi}/${id}`)
+        }
 }
