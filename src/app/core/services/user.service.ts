@@ -46,6 +46,7 @@ export class UserService {
   }
 }
 
+// delete account 
 
 deleteAccount(id: number){
   return this.userApi.deleteUserAccount(id).pipe(
