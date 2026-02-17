@@ -22,7 +22,7 @@ export class CondidatApi{
             location: location || 'unknown', 
             status:'pending',
             apiSource: 'arbeitnow',
-            notes: '',
+            notes: 'No description',
             dateAdded: new Date().toISOString() 
         }
 
@@ -46,4 +46,7 @@ updateCondidatStatus(id: number, status: string): Observable<Condidat> {
     return this.http.patch<Condidat>(`${this.condidatsUrl}/${id}`, { status });
 }
 
+addNoteToCondidat(id: number, notes: string): Observable<string>{
+    return this.http.patch<string>(`${this.condidatsUrl}/${id}`, {notes})
+}
 }
