@@ -21,5 +21,9 @@ export class CondidatService{
     updateCondidatStatus(id: number, status: string){
         return this.condidatApi.updateCondidatStatus(id, status);
     }
+
+    addNoteToCondidat(id: number, notes: string){
+      return this.condidatApi.addNoteToCondidat(id, notes)
+    }
     
 }

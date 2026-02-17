@@ -11,6 +11,7 @@ import {
   CdkDropList, 
   CdkDropListGroup 
 } from '@angular/cdk/drag-drop';
+import { AuthService } from '../../../core/services/auth.service';
 
 @Component({
   selector: 'app-my-condidats',
@@ -20,8 +21,8 @@ import {
   styleUrl: './my-condidats.css',
 })
 export class MyCondidats implements OnInit {
-  private readonly condidatService = inject(CondidatService);
-
+  private readonly condidatService = inject(CondidatService); 
+  private readonly authSrevice = inject(AuthService);
   isLoading = signal(true);
   
   // Three separate lists for the board
@@ -31,6 +32,7 @@ export class MyCondidats implements OnInit {
 
   ngOnInit(): void {
     this.fetchData();
+    
   }
 
   fetchData() {
@@ -71,5 +73,40 @@ export class MyCondidats implements OnInit {
         error: (err) => console.error('Failed to update status', err)
       });
     }
+  }
+
+
+
+  updatCondidatNote(note:string){
+    
+    const userId = this.authSrevice.getCurrentUser()?.id;
+
+    if(!userId) return ;
+
+
+    this.condidatService.addNoteToCondidat(userId, note).subscribe({
+      next: ()=>{
+          console.log("note added successfully")
+      },
+      error: (err)=>{
+        console.log("Failed to add note, please try again !", err);
+      }
+    })
+  }
+
+
+
+  // add note to condidat
+  addNoteToCondidat(id: number){
+    const message =prompt("enter the message") ;
+    this.condidatService.addNoteToCondidat(id, message || "").subscribe({
+      next: ()=>{
+        console.log(message);
+      },
+      error: (err)=>{
+        console.log("Failed to add note", err)
+      }
+    })
+
   }
 }
